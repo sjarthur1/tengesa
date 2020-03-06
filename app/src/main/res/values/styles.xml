@@ -1,0 +1,49 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:windowFullscreen">true</item>-->
+    </style>
+    
+    <style name="tengesa_header">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">27sp</item>
+        <item name="android:layout_height">35sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:color">@color/colorWhite</item>
+    </style>
+    
+    <style name="application_text">
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_height">18sp</item>
+        <item name="android:textColor">@color/colorGreyLight</item>
+    </style>
+    
+    <style name="form_field_border">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:elevation">10dp</item>
+        <item name="android:background">@drawable/simple_edit_text</item>
+    </style>
+    
+    <style name="top_layout">
+        <item name="android:layout_height">150dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/top_background</item>
+    </style>
+
+</resources>
