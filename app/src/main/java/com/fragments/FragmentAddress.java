@@ -1,6 +1,7 @@
 package com.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.adapters.AddressAdapter;
+import com.mobile.access_control.ActivityAccessControl;
 import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
 import com.objects.UserAddresses;
@@ -159,7 +161,9 @@ public class FragmentAddress extends Fragment implements AddressPresenter.Addres
     
     @Override
     public void redirectToLogin() {
-        StartFragment.startFragment( getFragmentManager(), "Login", FragmentLogin.newInstance() );
+        //StartFragment.startFragment( getFragmentManager(), "Login", FragmentLogin.newInstance() );
+        Intent intent = new Intent( context, ActivityAccessControl.class );
+        startActivity( intent );
     }
     
     

@@ -147,7 +147,7 @@ public class FragmentHome extends Fragment implements HomePresenter.HomeInterfac
                     Bundle bundle = new Bundle();
                     bundle.putString("SEARCH_TEXT", searchText);
                     category.setArguments(bundle);
-                    StartFragment.startFragment(getFragmentManager(), "CategoryItems", category);
+                    StartFragment.startFragment( getFragmentManager(), "CategoryItems", category );
                     break;
                 case R.id.button_try_again:
                     MainActivity.getInstance().getCart();

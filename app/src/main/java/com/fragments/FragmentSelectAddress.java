@@ -1,6 +1,7 @@
 package com.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adapters.SelectAddressAdapter;
+import com.mobile.access_control.ActivityAccessControl;
 import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
 import com.objects.UserAddresses;
@@ -152,7 +154,9 @@ public class FragmentSelectAddress extends Fragment implements AddressPresenter.
     
     @Override
     public void redirectToLogin() {
-        StartFragment.startFragment( getFragmentManager(), "Login", FragmentLogin.newInstance() );
+        //StartFragment.startFragment( getFragmentManager(), "Login", FragmentLogin.newInstance() );
+        Intent intent = new Intent( context, ActivityAccessControl.class );
+        startActivity( intent );
     }
     
 }

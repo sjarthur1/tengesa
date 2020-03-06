@@ -1,6 +1,7 @@
 package com.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
@@ -13,18 +14,14 @@ import android.view.ViewGroup;
 
 import com.constants.ProjectConfiguration;
 import com.google.android.material.textfield.TextInputEditText;
+import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
 import com.presenter.LoginPresenter;
 import com.presenter.StartFragment;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FragmentLogin.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FragmentLogin#newInstance} factory method to
- * create an instance of this fragment.
+ * Login fragment for the whole application
  */
 public class FragmentLogin extends Fragment implements LoginPresenter.LoginView {
     // TODO: Rename parameter arguments, choose names that match
@@ -40,9 +37,7 @@ public class FragmentLogin extends Fragment implements LoginPresenter.LoginView 
     
     private String email, password, page;
     private Context context;
-    
-    
-    private OnFragmentInteractionListener mListener;
+    private Intent intent;
     
     public FragmentLogin() {
         // Required empty public constructor
@@ -78,7 +73,7 @@ public class FragmentLogin extends Fragment implements LoginPresenter.LoginView 
         
         Bundle bundle = getArguments();
         if(bundle != null)
-        page = bundle.getString( ProjectConfiguration.PAGE, null );
+            page = bundle.getString( ProjectConfiguration.PAGE, null );
         
         editTextEmail = view.findViewById( R.id.edit_text_email );
         editTextPassword = view.findViewById( R.id.edit_text_password );
@@ -91,13 +86,6 @@ public class FragmentLogin extends Fragment implements LoginPresenter.LoginView 
         buttonLogin.setOnClickListener( clickListener );
         textViewRegister.setOnClickListener( clickListener );
         return view;
-    }
-    
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
     
     View.OnClickListener clickListener = new View.OnClickListener() {
@@ -120,12 +108,6 @@ public class FragmentLogin extends Fragment implements LoginPresenter.LoginView 
     };
     
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-    
-    @Override
     public void usernameError(String error) {
         editTextEmail.setError( error );
         editTextEmail.requestFocus();
@@ -144,26 +126,13 @@ public class FragmentLogin extends Fragment implements LoginPresenter.LoginView 
     
     @Override
     public void successful() {
-        if( page == null )
-            StartFragment.startFragment( getFragmentManager(), "Account", FragmentAccount.newInstance());
-        else if( page.equals( ProjectConfiguration.ADDRESS ) )
-            StartFragment.startFragment( getFragmentManager(), "Select Address", FragmentSelectAddress.newInstance());
-        else
-            StartFragment.startFragment( getFragmentManager(), "Account", FragmentAccount.newInstance());
+        intent = new Intent( context, MainActivity.class );
+        if( page.equals( ProjectConfiguration.page_select_address ) ) {
+            intent.putExtra( ProjectConfiguration.PAGE, ProjectConfiguration.page_select_address );
+        }else
+            intent.putExtra( ProjectConfiguration.PAGE, ProjectConfiguration.page_account );
+        startActivity( intent );
     }
     
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+    
 }

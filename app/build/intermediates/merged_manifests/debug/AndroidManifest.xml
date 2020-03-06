@@ -33,6 +33,7 @@
         android:testOnly="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true" >
+        <activity android:name="com.mobile.access_control.ActivityAccessControl" />
         <activity
             android:name="com.mobile.tengesa.MainActivity"
             android:configChanges="keyboardHidden|fontScale"

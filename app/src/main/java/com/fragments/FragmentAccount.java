@@ -1,6 +1,7 @@
 package com.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.constants.ProjectConfiguration;
 import com.helpers.PreferenceManagement;
+import com.mobile.access_control.ActivityAccessControl;
 import com.mobile.tengesa.R;
 import com.presenter.StartFragment;
 
@@ -33,6 +35,7 @@ public class FragmentAccount extends Fragment {
     private Button buttonLogout;
     
     private Context context;
+    private String username;
     
     public FragmentAccount() {
         // Required empty public constructor
@@ -79,6 +82,15 @@ public class FragmentAccount extends Fragment {
         return view;
     }
     
+    @Override
+    public void onResume() {
+        super.onResume();
+        username = PreferenceManagement.readString( context, ProjectConfiguration.userId, null );
+        if( username == null ) {
+            StartFragment.startFragment( getFragmentManager(), ProjectConfiguration.page_home, FragmentHome.newInstance() );
+        }
+    }
+    
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -98,7 +110,9 @@ public class FragmentAccount extends Fragment {
                     break;
                 case R.id.linear_layout_logout:
                     PreferenceManagement.RemoveItem(context, ProjectConfiguration.userId);
-                    StartFragment.startFragment(getFragmentManager(), "Address", FragmentLogin.newInstance());
+                    /*StartFragment.startFragment(getFragmentManager(), "Address", FragmentLogin.newInstance());*/
+                    Intent intent = new Intent( context, ActivityAccessControl.class );
+                    startActivity( intent );
                     break;
                 /*case R.id.button_Logout:
                     PreferenceManagement.RemoveItem(context, ProjectConfiguration.userId);

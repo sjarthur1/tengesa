@@ -1,4 +1,4 @@
-#Thu Mar 05 22:20:50 PST 2020
+#Fri Mar 06 12:48:25 PST 2020
 base.0=F\:\\Tengesa\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
 path.0=classes.dex
 renamed.0=classes.dex

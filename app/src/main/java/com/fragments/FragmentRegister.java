@@ -172,5 +172,6 @@ public class FragmentRegister extends Fragment implements RegisterPresenter.Regi
     public void successful(String message) {
         Toast.makeText( context, message, Toast.LENGTH_LONG ).show();
         StartFragment.startFragment(getFragmentManager(), "Login", FragmentLogin.newInstance());
+        
     }
 }

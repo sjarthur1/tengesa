@@ -1,6 +1,7 @@
 package com.mobile.tengesa;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -21,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import com.helpers.PreferenceManagement;
+import com.mobile.access_control.ActivityAccessControl;
 import com.objects.OrderData;
 import com.objects.ProductOrder;
 import com.presenter.MainPresenter;
@@ -59,18 +61,32 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener( mOnNavigationItemSelectedListener );
         
-        username = PreferenceManagement.readString( context, ProjectConfiguration.userId, null );
-        
         initialiseBadge();
         
-        fragment = FragmentHome.newInstance();
-        getSupportFragmentManager().beginTransaction().replace(R.id.linear_layout_main, fragment).commit();
-        
+        //If there is no bundle sent with in the activity then show home activity
+        Bundle bundle = getIntent().getExtras();
+        if( bundle == null ) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.linear_layout_main, FragmentHome.newInstance()).commit();
+        }else{
+            String page = bundle.getString( ProjectConfiguration.PAGE, null );
+            if( page.equals( ProjectConfiguration.page_select_address) ){
+                StartFragment.startFragment( getSupportFragmentManager(), ProjectConfiguration.page_select_address, FragmentAccount.newInstance() );
+            } else if( username == null ) {
+                StartFragment.startFragment( getSupportFragmentManager(), ProjectConfiguration.page_home, FragmentHome.newInstance() );
+            }else {
+                StartFragment.startFragment( getSupportFragmentManager(), ProjectConfiguration.page_account, FragmentAccount.newInstance() );
+            }
+        }
     }
     
     @Override
     protected void onResume() {
         super.onResume();
+    
+        
+        Bundle bundle = getIntent().getExtras();
+        
+        
         getCart();
     }
     
@@ -119,15 +135,15 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
     
     private void selectAccountPage(){
         String userId = PreferenceManagement.readString( context, ProjectConfiguration.userId, null );
-        String tag = "Account";
         if( userId == null ){
-            tag = "Login";
-            fragment = FragmentLogin.newInstance();
+            //fragment = FragmentLogin.newInstance();
+            Intent intent = new Intent( context, ActivityAccessControl.class );
+            startActivity( intent );
         }else{
             fragment = FragmentAccount.newInstance();
+            StartFragment.startFragment( getSupportFragmentManager(), ProjectConfiguration.page_account, fragment );
         }
         
-        StartFragment.startFragment( getSupportFragmentManager(), tag, fragment );
     }
     
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

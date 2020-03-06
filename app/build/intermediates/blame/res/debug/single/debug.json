@@ -20,20 +20,20 @@
         "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\5ba2db4ee9be9f34454841d7e89be701\\res\\color\\mtrl_tabs_icon_color_selector_colored.xml"
     },
     {
-        "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_orders.xml.flat",
-        "source": "F:\\Tengesa\\app\\src\\main\\res\\layout\\fragment_orders.xml"
-    },
-    {
         "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_alert_dialog_material.xml.flat",
         "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\30cc0fc2f2fe926397a7baa18f9ce987\\res\\layout\\abc_alert_dialog_material.xml"
     },
     {
-        "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxxhdpi-v17_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
-        "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\30cc0fc2f2fe926397a7baa18f9ce987\\res\\drawable-ldrtl-xxxhdpi-v17\\abc_ic_menu_copy_mtrl_am_alpha.png"
+        "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_orders.xml.flat",
+        "source": "F:\\Tengesa\\app\\src\\main\\res\\layout\\fragment_orders.xml"
     },
     {
         "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_tint_seek_thumb.xml.flat",
         "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\30cc0fc2f2fe926397a7baa18f9ce987\\res\\color-v23\\abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxxhdpi-v17_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
+        "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\30cc0fc2f2fe926397a7baa18f9ce987\\res\\drawable-ldrtl-xxxhdpi-v17\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
         "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_textfield_activated_mtrl_alpha.9.png.flat",
@@ -92,12 +92,12 @@
         "source": "F:\\Tengesa\\app\\src\\main\\res\\drawable\\close_view.xml"
     },
     {
-        "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_chip_text_color.xml.flat",
-        "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\5ba2db4ee9be9f34454841d7e89be701\\res\\color\\mtrl_chip_text_color.xml"
-    },
-    {
         "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_menu_paste_mtrl_am_alpha.png.flat",
         "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\30cc0fc2f2fe926397a7baa18f9ce987\\res\\drawable-mdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_chip_text_color.xml.flat",
+        "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\5ba2db4ee9be9f34454841d7e89be701\\res\\color\\mtrl_chip_text_color.xml"
     },
     {
         "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_list_focused_holo.9.png.flat",
@@ -148,16 +148,16 @@
         "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\30cc0fc2f2fe926397a7baa18f9ce987\\res\\drawable-xhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
     },
     {
-        "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_tint_btn_checkable.xml.flat",
-        "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\30cc0fc2f2fe926397a7baa18f9ce987\\res\\color-v23\\abc_tint_btn_checkable.xml"
+        "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_account_details.xml.flat",
+        "source": "F:\\Tengesa\\app\\src\\main\\res\\layout\\fragment_account_details.xml"
     },
     {
         "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_bottom_nav_colored_item_tint.xml.flat",
         "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\5ba2db4ee9be9f34454841d7e89be701\\res\\color\\mtrl_bottom_nav_colored_item_tint.xml"
     },
     {
-        "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_account_details.xml.flat",
-        "source": "F:\\Tengesa\\app\\src\\main\\res\\layout\\fragment_account_details.xml"
+        "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_tint_btn_checkable.xml.flat",
+        "source": "C:\\Users\\asus\\.gradle\\caches\\transforms-2\\files-2.1\\30cc0fc2f2fe926397a7baa18f9ce987\\res\\color-v23\\abc_tint_btn_checkable.xml"
     },
     {
         "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_textfield_search_default_mtrl_alpha.9.png.flat",
@@ -1282,6 +1282,10 @@
     {
         "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\drawable_specification_separator.xml.flat",
         "source": "F:\\Tengesa\\app\\src\\main\\res\\drawable\\specification_separator.xml"
+    },
+    {
+        "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_access_control.xml.flat",
+        "source": "F:\\Tengesa\\app\\src\\main\\res\\layout\\activity_access_control.xml"
     },
     {
         "merged": "F:\\Tengesa\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",

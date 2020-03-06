@@ -36,6 +36,7 @@ public class ProjectConfiguration {
     public static final String locationType       = "locationType";
     public static final String address1           = "address1";
     public static final String birthDate          = "BirthDate";
+    public static final String ADDRESS            = "Address";
     
     public static final String _id                    = "_id";
     public static final String orderId                = "OrderId";
@@ -52,7 +53,11 @@ public class ProjectConfiguration {
     public static final String DD_MM_YYYY         = "dd/mm/yyyy";
     
     
-    public static final String PAGE               = "PAGE";
-    public static final String ADDRESS            = "Address";
+    public static final String PAGE                = "PAGE";
+    public static final String page_address        = "PAGE_ADDRESS";
+    public static final String page_account        = "PAGE_ACCOUNT";
+    public static final String page_select_address = "PAGE_SELECT_ADDRESS";
+    public static final String page_home           = "PAGE_HOME";
+    public static final String page_my_cart        = "PAGE_MY_CART";
     
 }

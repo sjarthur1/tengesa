@@ -1,6 +1,7 @@
 package com.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.adapters.HorizontalListItemAdapter;
 import com.constants.ProjectConfiguration;
 import com.helpers.PreferenceManagement;
+import com.mobile.access_control.ActivityAccessControl;
 import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
 import com.objects.CartObject;
@@ -128,11 +130,14 @@ public class FragmentMyCart extends Fragment implements MyCartPresenter.MyCartVi
                         newFragment = FragmentSelectAddress.newInstance();
                         StartFragment.startFragment(getFragmentManager(), newFragment);
                     } else {
-                        newFragment = FragmentLogin.newInstance();
+                        /*newFragment = FragmentLogin.newInstance();
                         Bundle bundle = new Bundle();
                         bundle.putString(ProjectConfiguration.PAGE, ProjectConfiguration.ADDRESS);
                         newFragment.setArguments(bundle);
-                        StartFragment.startFragment(getFragmentManager(), "Login", newFragment);
+                        StartFragment.startFragment(getFragmentManager(), "Login", newFragment);*/
+                        Intent intent = new Intent( context, ActivityAccessControl.class );
+                        intent.putExtra( ProjectConfiguration.PAGE, ProjectConfiguration.page_select_address );
+                        startActivity( intent );
                     }
                     break;
             }

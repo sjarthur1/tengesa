@@ -98,8 +98,6 @@ public class FragmentPayment extends Fragment implements PaymentPresenter.Paymen
         Bundle bundle = getArguments();
         UserAddresses address = bundle.containsKey( ProjectConfiguration.ADDRESS ) ? ( UserAddresses ) bundle.getParcelable( ProjectConfiguration.ADDRESS ) : null;
     
-        Log.d( "Tag", "Ho" );
-    
         List<ProductOrder> productOrderList = MainActivity.getInstance().getCartList();
         OrderData orderData = MainActivity.getInstance().getOrderData();
         textViewSubTotal.setText( orderData.getSubTotal()+"" );
