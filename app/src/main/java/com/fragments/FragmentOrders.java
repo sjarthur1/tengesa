@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.adapters.OrdersAdapter;
+import com.constants.ProjectConfiguration;
 import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
 import com.objects.FullOrder;
@@ -31,7 +32,7 @@ public class FragmentOrders extends Fragment implements OrdersPresenter.OrdersVi
     private static FragmentOrders fragment;
     private View view;
     private RecyclerView recyclerViewOrders;
-    private ImageView imageViewBack;
+    private ImageView imageViewBack, imageViewLogo;
     
     // TODO: Rename and change types of parameters
     private OrdersPresenter presenter;
@@ -76,6 +77,7 @@ public class FragmentOrders extends Fragment implements OrdersPresenter.OrdersVi
     private void initializeView(){
         recyclerViewOrders = view.findViewById( R.id.recycler_view_orders );
         imageViewBack = view.findViewById( R.id.image_view_back );
+        imageViewLogo = view.findViewById( R.id.image_view_logo );
         imageViewBack.setOnClickListener( onClickListener );
         
         presenter = new OrdersPresenter( context, this );
@@ -84,7 +86,8 @@ public class FragmentOrders extends Fragment implements OrdersPresenter.OrdersVi
         adapter = new OrdersAdapter( context, orderList );
         recyclerViewOrders.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         recyclerViewOrders.setAdapter( adapter );
-        
+    
+        ProjectConfiguration.setLogo( imageViewLogo );
         presenter.getOrders();
     }
     
@@ -103,8 +106,7 @@ public class FragmentOrders extends Fragment implements OrdersPresenter.OrdersVi
     public void successful(List<FullOrder> fullOrder) {
         orderList.clear();
         if(fullOrder != null){
-            for(int orderIndex = 0; orderIndex < fullOrder.size(); orderIndex++){
-                FullOrder order = fullOrder.get(orderIndex);
+            for( FullOrder order: fullOrder ) {
                 ArrayList<FullOrder.ListUserOrderDetailsObject> orderItems = order.getListUserOrderDetails();
                 orderList.addAll( orderItems );
             }

@@ -6,9 +6,6 @@
     android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.fragments.FragmentHome"
     android:orientation="vertical">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,8 +20,7 @@
                             android:id="@+id/image_view_logo"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:src="@drawable/tengesadotcomwhite"/>
+                            android:layout_marginBottom="10dp"/>
                     <ImageView
                             android:id="@+id/image_view_back"
                             android:layout_width="50dp"
@@ -45,7 +41,11 @@
                     android:text="@string/title_add_address"
                     style="@style/tengesa_header"/>
             </LinearLayout>
-            
+    
+            <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,84 +54,232 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="15dp"
-                android:paddingTop="20dp">
-                <LinearLayout
+                android:paddingTop="5dp">
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/full_name"/>
-                </LinearLayout>
-                <EditText
-                    android:id="@+id/edit_text_name"
-                    android:layout_width="match_parent"
-                    android:hint="@string/name"
-                    android:inputType="textPersonName"
-                    android:digits="abcdefghijklmnopqrstuvvxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-                    android:drawableLeft="@drawable/icon_user"
-                    style="@style/form_field_border"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/country"/>
-                </LinearLayout>
-                <Spinner
-                        android:id="@+id/spinner_country"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/full_name"
+                    app:errorEnabled="true"
+                    app:boxStrokeWidth="5dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_name"
                         android:layout_width="match_parent"
-                        android:hint="@string/country"
-                        android:drawableLeft="@drawable/icon_flag"
-                        style="@style/form_field_border"/>
-                <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                            android:maxLength="100"
+                        android:singleLine="true"
+                        android:inputType="text|textPersonName"
+                        android:focusedByDefault="false"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ">
+        
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+    
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_weight="8">
+                    <Spinner
+                            android:id="@+id/spinner_country"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            android:paddingLeft="10dp"
+                            android:background="@drawable/edit_text_border"></Spinner>
+                    <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/icon_drop_down"/>
+                </RelativeLayout>
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/mobile_number"/>
-                </LinearLayout>
-                <LinearLayout
+                </LinearLayout>-->
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Mobile Number"
+                        app:errorEnabled="true"
+                        android:layout_weight="4"
+                        app:boxStrokeWidth="5dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_mobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:focusedByDefault="false"
+                            android:maxLength="15"
+                            android:singleLine="true"
+                            android:inputType="phone"
+                            android:digits="1234567890">
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+    
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_weight="8">
+                    <Spinner
+                            android:id="@+id/spinner_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            android:paddingLeft="10dp"
+                            android:background="@drawable/edit_text_border"></Spinner>
+                    <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/icon_drop_down"/>
+                </RelativeLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/area"
+                        app:errorEnabled="true"
+                        android:layout_weight="4"
+                        app:boxStrokeWidth="5dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_area"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:focusedByDefault="false"
+                            android:singleLine="true"
+                            android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                            android:inputType="textCapWords">
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/street_name"
+                        app:errorEnabled="true"
+                        android:layout_weight="4"
+                        app:boxStrokeWidth="5dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_street"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:focusedByDefault="false"
+                            android:singleLine="true"
+                            android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                            android:inputType="textCapWords" >
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_weight="8">
+                    <Spinner
+                            android:id="@+id/spinner_location_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            android:paddingLeft="10dp"
+                            android:background="@drawable/edit_text_border"></Spinner>
+                    <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/icon_drop_down"/>
+                </RelativeLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:padding="2dp"
-                        android:drawableLeft="@drawable/icon_phone"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
-                        android:background="@drawable/phone_number_icon"/>
-                    <EditText
-                        android:id="@+id/edit_text_country_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:padding="2dp"
-                        android:layout_marginTop="2dp"
-                        android:digits="+1234567890"
-                        android:focusable="false"
-                        android:editable="false"
-                        android:maxLength="7"
-                        android:layout_marginBottom="2dp"
-                        android:background="@drawable/country_code_edit_text"/>
-                    <EditText
-                        android:id="@+id/edit_text_mobile"
+                    android:hint="@string/nearest_landmark"
+                    app:errorEnabled="true"
+                    android:layout_weight="4"
+                    app:boxStrokeWidth="5dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_nearest_land_mark"
                         android:layout_width="match_parent"
-                        android:hint="@string/mobile_number"
-                        android:layout_height="35dp"
-                        android:padding="2dp"
-                        android:layout_marginTop="2dp"
+                        android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:digits="1234567890"
-                        android:inputType="numberDecimal"
-                        android:maxLength="13"
-                        android:layout_marginBottom="2dp"
-                        android:background="@drawable/edit_text_phone_number"/>
-                </LinearLayout>
-                <LinearLayout
+                        android:focusedByDefault="false"
+                        android:singleLine="true"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                        android:inputType="textCapWords" >
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/shipping_note"
+                    app:errorEnabled="true"
+                    android:layout_weight="4"
+                    app:boxStrokeWidth="5dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_shipping_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:focusedByDefault="false"
+                        android:singleLine="true"
+                        android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                        android:inputType="textCapWords" >
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address_one"
+                    app:errorEnabled="true"
+                    android:layout_weight="4"
+                    app:boxStrokeWidth="5dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_address1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:focusedByDefault="false"
+                        android:singleLine="true"
+                        android:inputType="textCapWords"
+                        android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ">
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address_two"
+                    app:errorEnabled="true"
+                    android:layout_weight="4"
+                    app:boxStrokeWidth="5dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_address2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:focusedByDefault="false"
+                        android:singleLine="true"
+                        android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                        android:inputType="textCapWords">
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -144,118 +292,21 @@
                     android:layout_width="match_parent"
                     android:hint="@string/city"
                     android:drawableLeft="@drawable/icon_city"
-                    style="@style/form_field_border"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/area"/>
-                </LinearLayout>
-                <EditText
-                    android:id="@+id/edit_text_area"
-                    android:layout_width="match_parent"
-                    android:hint="@string/area"
-                    android:drawableLeft="@drawable/icon_map"
-                    style="@style/form_field_border"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/street_name"/>
-                </LinearLayout>
-                <EditText
-                    android:id="@+id/edit_text_street"
-                    android:layout_width="match_parent"
-                    android:hint="@string/street_name"
-                    android:drawableLeft="@drawable/icon_streetview"
-                    style="@style/form_field_border"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/location_type"/>
-                </LinearLayout>
-                <EditText
-                    android:id="@+id/edit_text_location_type"
-                    android:layout_width="match_parent"
-                    android:hint="@string/location_type"
-                    android:drawableLeft="@drawable/icon_center"
-                    style="@style/form_field_border"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/nearest_landmark"/>
-                </LinearLayout>
-                <EditText
-                    android:id="@+id/edit_text_nearest_land_mark"
-                    android:layout_width="match_parent"
-                    android:hint="@string/nearest_landmark"
-                    android:drawableLeft="@drawable/icon_center"
-                    style="@style/form_field_border"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/shipping_note"/>
-                </LinearLayout>
-                <EditText
-                    android:id="@+id/edit_text_shipping_note"
-                    android:layout_width="match_parent"
-                    android:hint="@string/shipping_note"
-                    android:drawableLeft="@drawable/icon_center"
-                    style="@style/form_field_border"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/address_one"/>
-                </LinearLayout>
-                <EditText
-                    android:id="@+id/edit_text_address1"
-                    android:layout_width="match_parent"
-                    android:hint="@string/address_one"
-                    android:drawableLeft="@drawable/icon_center"
-                    style="@style/form_field_border"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/address_two"/>
-                </LinearLayout>
-                <EditText
-                    android:id="@+id/edit_text_address2"
-                    android:layout_width="match_parent"
-                    android:hint="@string/address_two"
-                    android:drawableLeft="@drawable/icon_center"
-                    style="@style/form_field_border"/>
+                    style="@style/form_field_border"/>-->
                 <Button
                     android:id="@+id/button_submit"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:text="submit"
                     android:textColor="@color/colorWhite"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_gravity="center"
                     android:background="@drawable/button_blue"
                     android:textAllCaps="false"
                 />
             </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>

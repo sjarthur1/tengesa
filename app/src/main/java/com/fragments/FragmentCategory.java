@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.adapters.ItemListAdapter;
+import com.constants.InputValidator;
+import com.constants.ProjectConfiguration;
 import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
 import com.objects.ProductData;
@@ -41,7 +43,7 @@ public class FragmentCategory extends Fragment implements SingleCategoryPresente
     private Context context;
     
     private EditText editTextSearch;
-    private ImageView imageViewSearch, buttonCancel, imageViewBack;
+    private ImageView imageViewSearch, buttonCancel, imageViewBack, imageViewLogo;
     private RecyclerView recyclerViewCategory;
     
     private SingleCategoryPresenter presenter;
@@ -78,6 +80,7 @@ public class FragmentCategory extends Fragment implements SingleCategoryPresente
         context = getContext();
         activity = getActivity();
     
+        imageViewLogo        = view.findViewById( R.id.image_view_logo );
         imageViewBack        = view.findViewById( R.id.image_view_back );
         editTextSearch       = view.findViewById( R.id.edit_text_search );
         imageViewSearch      = view.findViewById( R.id.image_view_search );
@@ -92,8 +95,9 @@ public class FragmentCategory extends Fragment implements SingleCategoryPresente
             presenter = new SingleCategoryPresenter(this);
         
         Bundle bundle = getArguments();
-            categoryId = bundle.getString("CategoryId", null);
-            searchText = bundle.containsKey( "SEARCH_TEXT" ) ? bundle.getString( "SEARCH_TEXT" ) : null;
+        categoryId = bundle.getString("CategoryId", null);
+        searchText = bundle.containsKey( "SEARCH_TEXT" ) ? bundle.getString( "SEARCH_TEXT" ) : null;
+        searchText = InputValidator.validateText( searchText );
         
         if(productList == null )
             productList = new ArrayList<>();
@@ -107,6 +111,8 @@ public class FragmentCategory extends Fragment implements SingleCategoryPresente
             presenter.getCategoryById(categoryId);
         
         editTextSearch.addTextChangedListener( textWatcher );
+    
+        ProjectConfiguration.setLogo( imageViewLogo );
         return view;
     }
     
@@ -121,6 +127,8 @@ public class FragmentCategory extends Fragment implements SingleCategoryPresente
             } else if (view.getId() == R.id.button_cancel) {
                 editTextSearch.setText("");
             } else if (view.getId() == R.id.button_cancel) {
+                MainActivity.getInstance().onBackPressed();
+            }else if (view.getId() == R.id.image_view_back) {
                 MainActivity.getInstance().onBackPressed();
             }
         }
@@ -148,10 +156,11 @@ public class FragmentCategory extends Fragment implements SingleCategoryPresente
     private void filterSearch( String searchString ){
         List<ProductData> products = presenter.productLists;
         searchContacts = new ArrayList<>();
-        if( searchString.length() > 0 ){
+        searchText = InputValidator.validateText( searchString );
+        if( searchText.length() > 0 ){
             for(int counter = 0; counter < products.size(); counter++){
                 ProductData productData = products.get(counter);
-                if( productData.getTitle().toLowerCase().contains( searchString ) ){
+                if( productData.getTitle().toLowerCase().contains( searchText ) ){
                     searchContacts.add( productData );
                 }
             }
@@ -160,7 +169,8 @@ public class FragmentCategory extends Fragment implements SingleCategoryPresente
     
     
     public void addListToAdapter(final String s){
-        if(s.length() > 0) {
+        searchText = InputValidator.validateText( s );
+        if(searchText.length() > 0) {
             itemListAdapter = new ItemListAdapter( getContext(), searchContacts, getFragmentManager() );
             buttonCancel.setVisibility( View.VISIBLE );
         }else{
@@ -186,6 +196,7 @@ public class FragmentCategory extends Fragment implements SingleCategoryPresente
         super.onResume();
         if( searchText != null ){
             presenter.getSearchProductResults( searchText );
+            editTextSearch.setText( searchText );
         }
     }
     
@@ -197,15 +208,20 @@ public class FragmentCategory extends Fragment implements SingleCategoryPresente
     
     @Override
     public void updateInterface(List<ProductData> productList) {
-        this.productList.clear();
-        this.productList = productList;
+        if(searchText == null || searchText.equals("")) {
+            this.productList.clear();
+            this.productList.addAll( productList );
+        }else{
+            searchContacts.clear();
+            searchContacts.addAll( productList );
+        }
         recyclerViewCategory.post(new Runnable() {
             @Override
             public void run() {
                 itemListAdapter.notifyDataSetChanged();
             }
         });
-        itemListAdapter = new ItemListAdapter(getContext(), productList, getFragmentManager());
-        recyclerViewCategory.setAdapter( itemListAdapter );
+        /*itemListAdapter = new ItemListAdapter(getContext(), productList, getFragmentManager());
+        recyclerViewCategory.setAdapter( itemListAdapter );*/
     }
 }

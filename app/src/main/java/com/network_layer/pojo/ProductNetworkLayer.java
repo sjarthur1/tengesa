@@ -59,6 +59,16 @@ public interface ProductNetworkLayer {
     @GET("api/Product/GetProductsBySellerID")
     Call<List<ProductData>> GetProductsBySellerID( @Query("SellerID") String SellerID );
     
+    //Get All Offers
+    @Headers({
+            CONTENT_TYPE+": "+ APPLICATION_JSON,
+            ACCEPT+": "+ APPLICATION_JSON,
+            AUTHORIZATION+": "+ BASIC_BMLWCZ_IW_MTK,
+            ACCEPT_LANGUAGE+": "+ EN_US
+    })
+    @GET("api/Product/GetRelatedProducts")
+    Call<List<ProductData>> GetRelatedProducts( @Query("CategoryID") String CategoryID, @Query("ProductID") String ProductID );
+    
     //Get Categories for displaying Home Products
     @Headers({
             CONTENT_TYPE+": "+ APPLICATION_JSON,

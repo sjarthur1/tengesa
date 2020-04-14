@@ -25,6 +25,7 @@ import com.objects.Orders;
 import com.objects.ProductOrder;
 import com.objects.UserAddresses;
 import com.presenter.PaymentPresenter;
+import com.presenter.StartFragment;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class FragmentPayment extends Fragment implements PaymentPresenter.Paymen
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static FragmentPayment fragment;
     private View view;
-    private ImageView imageViewBack;
+    private ImageView imageViewBack, imageViewLogo;
     private TextView textViewSubTotal, textViewShipping, textViewTotal, textViewName, textViewAddress, textViewPhone, textViewExtraShipping;
     private Button buttonPlaceOrder;
     private LinearLayout linearLayoutExtraShipping;
@@ -82,6 +83,7 @@ public class FragmentPayment extends Fragment implements PaymentPresenter.Paymen
     
     // TODO: Rename method, update argument and hook method into UI event
     public void initialize() {
+        imageViewLogo    = view.findViewById( R.id.image_view_logo );
         imageViewBack    = view.findViewById( R.id.image_view_back );
         textViewSubTotal = view.findViewById( R.id.text_view_sub_total );
         textViewShipping = view.findViewById( R.id.text_view_shipping );
@@ -92,6 +94,8 @@ public class FragmentPayment extends Fragment implements PaymentPresenter.Paymen
         textViewExtraShipping = view.findViewById( R.id.text_view_extra_shipping );
         linearLayoutExtraShipping = view.findViewById( R.id.linear_layout_extra_shipping );
         buttonPlaceOrder = view.findViewById( R.id.button_place_order );
+        
+        ProjectConfiguration.setLogo( imageViewLogo );
         
         presenter = new PaymentPresenter( context, this );
         
@@ -122,7 +126,12 @@ public class FragmentPayment extends Fragment implements PaymentPresenter.Paymen
         public void onClick( View view ) {
             switch (view.getId()) {
                 case R.id.button_place_order:
-                    presenter.pressOrder();
+                    presenter.placeOrder();
+                    Fragment newFragment = FragmentProcessingOrder.newInstance();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(ProjectConfiguration.message, context.getString(R.string.place_order_message));
+                    newFragment.setArguments( bundle );
+                    StartFragment.startFragment(getFragmentManager(), "Processing", newFragment);
                     break;
                 case R.id.image_view_back:
                     MainActivity.getInstance().onBackPressed();

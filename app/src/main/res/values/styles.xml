@@ -10,20 +10,34 @@
         <item name="android:windowNoTitle">true</item>
         <!--<item name="android:windowFullscreen">true</item>-->
     </style>
+
+    <!-- Base application theme. -->
+    <style name="AppAuthenticationTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:windowFullscreen">true</item>-->
+    </style>
     
     <style name="tengesa_header">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">27sp</item>
         <item name="android:layout_height">35sp</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
         <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:layout_marginBottom">10dp</item>
         <item name="android:color">@color/colorWhite</item>
     </style>
     
     <style name="application_text">
         <item name="android:textSize">13sp</item>
         <item name="android:layout_height">18sp</item>
+        <item name="android:lineHeight">15sp</item>
         <item name="android:textColor">@color/colorGreyLight</item>
     </style>
     
@@ -34,14 +48,13 @@
         <item name="android:layout_marginBottom">5dp</item>
         <item name="android:drawablePadding">10dp</item>
         <item name="android:padding">2dp</item>
-        <item name="android:elevation">10dp</item>
         <item name="android:background">@drawable/simple_edit_text</item>
     </style>
     
     <style name="top_layout">
-        <item name="android:layout_height">150dp</item>
-        <item name="android:padding">2dp</item>
-        <item name="android:gravity">center</item>
+        <item name="android:layout_height">125dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center_horizontal</item>
         <item name="android:orientation">vertical</item>
         <item name="android:background">@drawable/top_background</item>
     </style>

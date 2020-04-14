@@ -1,6 +1,7 @@
 package com.objects;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Orders implements Serializable {
     private String _id;
@@ -10,7 +11,7 @@ public class Orders implements Serializable {
     private String OrderAmount;
     private String OrderAddressID;
     private ListUserOrderDetailsObject ListUserOrderDetails;
-    private OrderShippingDetailsListObject  OrderShippingDetailsList;
+    private List<OrderShippingDetailsListObject>  OrderShippingDetailsList;
     
     public String getOrderID() {
         return OrderID;
@@ -68,11 +69,11 @@ public class Orders implements Serializable {
         this.ListUserOrderDetails = ListUserOrderDetails;
     }
     
-    public OrderShippingDetailsListObject getOrderShippingDetailsList() {
+    public List<OrderShippingDetailsListObject> getOrderShippingDetailsList() {
         return OrderShippingDetailsList;
     }
     
-    public void setOrderShippingDetailsList(OrderShippingDetailsListObject OrderShippingDetailsList) {
+    public void setOrderShippingDetailsList(List<OrderShippingDetailsListObject> OrderShippingDetailsList) {
         this.OrderShippingDetailsList = OrderShippingDetailsList;
     }
     

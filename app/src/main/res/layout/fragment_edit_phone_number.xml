@@ -1,53 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-              android:minWidth="300dp"
-             tools:context="com.fragments.FragmentEditPassword">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="300dp"
+    tools:context="com.fragments.FragmentEditPassword">
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="2"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:background="@drawable/dialog_background"
             android:paddingTop="20dp">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/current_mobile"
+            app:errorEnabled="true"
+            android:layout_weight="4"
+            app:boxStrokeWidth="5dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_current_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:focusedByDefault="false"
+                android:focusable="false"
+                android:editable="false"
+                android:singleLine="true"
+                android:inputType="phone"
+                android:digits="+1234567890">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="0dp"
+                android:weightSum="12">
             <RelativeLayout
-                    android:layout_width="70dp"
-                    android:layout_height="40dp">
-                <Spinner
-                    android:id="@+id/spinner_country_code"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:elevation="10dp"
-                    android:paddingLeft="5dp"
-                    android:background="@drawable/toggle_left_off"></Spinner>
+                    android:layout_height="48dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="8"
+                    android:layout_marginRight="10dp">
+                <Spinner
+                        android:id="@+id/spinner_country_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:elevation="10dp"
+                        android:paddingLeft="5dp"
+                        android:background="@drawable/edit_text_border"></Spinner>
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    app:srcCompat="@drawable/icon_drop_down"/>
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/icon_drop_down"/>
             </RelativeLayout>
-            <EditText
-                android:id="@+id/edit_text_phone_number"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:hint="@string/mobile_number"
-                android:inputType="phone"
-                android:elevation="10dp"
-                android:digits="1234567890+"
-                android:singleLine="true"
-                android:maxLength="10"
-                android:paddingRight="10dp"
-                android:background="@drawable/toggle_right_off"
-                android:paddingLeft="10dp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/new_mobile_number"
+                    app:errorEnabled="true"
+                    android:layout_weight="4"
+                    app:boxStrokeWidth="5dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_phone_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:focusedByDefault="false"
+                        android:singleLine="true"
+                        android:inputType="phone"
+                        android:digits="1234567890">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <TextView
             android:id="@+id/text_view_phone_error"
@@ -55,20 +88,22 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorError"
             android:visibility="gone"/>
-        <EditText
-            android:id="@+id/edit_text_password"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890@."
-            android:singleLine="true"
-            android:elevation="10dp"
-            android:drawablePadding="15dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/edit_text_border1"
-            android:drawableLeft="@drawable/icon_key_black"
-            android:paddingLeft="10dp"/>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:inputType="textPassword"
+                    android:drawableLeft="@drawable/icon_key_black">
+        
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
             android:id="@+id/text_view_error"
             android:layout_width="match_parent"
@@ -92,10 +127,10 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="right">
             <TextView
                     android:id="@+id/text_view_close"

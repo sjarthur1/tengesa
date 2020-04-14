@@ -115,14 +115,19 @@ public class FragmentProduct extends Fragment implements ProductPresenter.Produc
         condition = new ArrayList<>();
         
         Bundle bundle = getArguments();
-        productData = ( ProductData ) bundle.getSerializable("product");
+        productData = bundle.containsKey("product") ? ( ProductData ) bundle.getSerializable("product") : null;
         
         userId = PreferenceManagement.readString( context, ProjectConfiguration.userId, null );
         
         if(userId == null )
             buttonAddToWishList.setVisibility(View.GONE);
         
-        inflateView();
+        if( productData != null )
+            inflateView();
+        else{
+            String productId = bundle.getString( ProjectConfiguration.productId, null );
+            presenter.getProductById( productId );
+        }
         
         imageViewBack.setOnClickListener( clickListener );
         buttonAddToCart.setOnClickListener( clickListener );
@@ -173,7 +178,8 @@ public class FragmentProduct extends Fragment implements ProductPresenter.Produc
             Map.Entry<String, Object> entry = entryIterator.next();
             String key = entry.getKey();
             String value = entry.getValue().toString();
-            specificationsList.add(new Specifications(key, value));
+            if(value != null && !value.equals(""))
+                specificationsList.add(new Specifications(key, value));
         }
         
         adapter = new SpecificationAdapter(context, specificationsList);
@@ -195,7 +201,7 @@ public class FragmentProduct extends Fragment implements ProductPresenter.Produc
         recyclerViewList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         recyclerViewList.setAdapter(layoutAdapter);
         
-        presenter.getCategoryById( productData.getCategoryID() );
+        presenter.getRelatedProducts( productData.getCategoryID(), productData.getProductID() );
     }
     
     ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -231,7 +237,7 @@ public class FragmentProduct extends Fragment implements ProductPresenter.Produc
                     break;
                 case R.id.button_add_to_wish_list:
                     //showDialog();
-                    presenter.saveToWishList( productData.getProductID() );
+                    presenter.saveToWishList( productData.getProductID(), productData.getTitle() );
                     break;
                 case R.id.image_view_back:
                     MainActivity.getInstance().onBackPressed();
@@ -262,6 +268,12 @@ public class FragmentProduct extends Fragment implements ProductPresenter.Produc
     }
     
     @Override
+    public void successful(ProductData productList) {
+        productData = productList;
+        inflateView();
+    }
+    
+    @Override
     public void successful(List<ProductData> productList) {
         productDataList.addAll( productList );
         recyclerViewList.post(new Runnable() {
@@ -278,8 +290,9 @@ public class FragmentProduct extends Fragment implements ProductPresenter.Produc
         if(action.equals(ActionOption.cart)){
             buttonText = "Go to Cart";
         }
+        Toast.makeText( context, message, Toast.LENGTH_LONG ).show();
         
-        AlertDialog.Builder builder = new AlertDialog.Builder( context );
+       /* AlertDialog.Builder builder = new AlertDialog.Builder( context );
         builder.setTitle(title);
         builder.setMessage(message);
         builder.setCancelable(false)
@@ -302,7 +315,7 @@ public class FragmentProduct extends Fragment implements ProductPresenter.Produc
         alertDialog = builder.create();
         alertDialog.show();
     
-        alertDialog.getWindow().setGravity(Gravity.TOP);
+        alertDialog.getWindow().setGravity(Gravity.TOP);*/
     }
     
     @Override

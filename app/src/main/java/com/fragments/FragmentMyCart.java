@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
@@ -45,6 +46,7 @@ public class FragmentMyCart extends Fragment implements MyCartPresenter.MyCartVi
     
     private RecyclerView recyclerViewCart;
     private TextView textViewTotalPrice;
+    private ImageView imageViewLogo;
     private Button buttonCheckOut;
     private SwipeRefreshLayout swipeRefreshLayout;
     
@@ -84,9 +86,10 @@ public class FragmentMyCart extends Fragment implements MyCartPresenter.MyCartVi
         view = inflater.inflate(R.layout.fragment_my_cart, container, false);
         
         context = getContext();
+        imageViewLogo      = view.findViewById( R.id.image_view_logo );
         textViewTotalPrice = view.findViewById( R.id.text_view_total_price );
-        recyclerViewCart = view.findViewById( R.id.recycler_view_cart );
-        buttonCheckOut = view.findViewById( R.id.button_check_out );
+        recyclerViewCart   = view.findViewById( R.id.recycler_view_cart );
+        buttonCheckOut     = view.findViewById( R.id.button_check_out );
         swipeRefreshLayout = view.findViewById( R.id.swipe_refresh_layout );
         
         if(presenter == null)
@@ -107,6 +110,7 @@ public class FragmentMyCart extends Fragment implements MyCartPresenter.MyCartVi
         presenter.getFullCart( userId );
         //}
         
+        ProjectConfiguration.setLogo( imageViewLogo );
         return view;
     }
     
@@ -128,13 +132,9 @@ public class FragmentMyCart extends Fragment implements MyCartPresenter.MyCartVi
                 case R.id.button_check_out:
                     if (userId != null) {
                         newFragment = FragmentSelectAddress.newInstance();
-                        StartFragment.startFragment(getFragmentManager(), newFragment);
+                        StartFragment.startFragment(getFragmentManager(), "Select Address", newFragment);
+                        MainActivity.getInstance().reloadCart();
                     } else {
-                        /*newFragment = FragmentLogin.newInstance();
-                        Bundle bundle = new Bundle();
-                        bundle.putString(ProjectConfiguration.PAGE, ProjectConfiguration.ADDRESS);
-                        newFragment.setArguments(bundle);
-                        StartFragment.startFragment(getFragmentManager(), "Login", newFragment);*/
                         Intent intent = new Intent( context, ActivityAccessControl.class );
                         intent.putExtra( ProjectConfiguration.PAGE, ProjectConfiguration.page_select_address );
                         startActivity( intent );
@@ -159,10 +159,9 @@ public class FragmentMyCart extends Fragment implements MyCartPresenter.MyCartVi
             }
         });
         List<ProductOrder> productList = new ArrayList<>();
-        for( int index = 0; index < cartObject.size(); index++ ){
-            CartObject cart = cartObject.get( index );
+        for( CartObject cart : cartObject ){
             double totalPrice = cart.getPrice() * cart.getQuantity();
-            productList.add( new ProductOrder( cart.getProductID(), cart.getSoldBy(), cart.getPrice(), cart.getQuantity(), totalPrice, cart.getShippingAmount() ) );
+            productList.add( new ProductOrder( cart.getProductID(), cart.getSoldBy(), cart.getPrice(), cart.getQuantity(), totalPrice, cart.getShippingFee() ) );
         }
     
         MainActivity.getInstance().saveCartItems( productList );
@@ -206,6 +205,7 @@ public class FragmentMyCart extends Fragment implements MyCartPresenter.MyCartVi
             totalAmount += total;
         }
         textViewTotalPrice.setText(totalAmount+"");
+        
     }
     
     @Override

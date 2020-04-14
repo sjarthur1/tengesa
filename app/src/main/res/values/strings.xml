@@ -9,6 +9,7 @@
     <string name="title_my_cart">My Cart</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_add_address">Add Address</string>
+    <string name="title_edit_address">Edit Address</string>
     <string name="title_login">Login</string>
     <string name="title_register">Register</string>
     <string name="title_registration">User Registration</string>
@@ -24,8 +25,10 @@
     <string name="sold_by">Sold By:</string>
     <string name="personal_information">Personal Information</string>
     <string name="mobile_number">Mobile Number</string>
+    <string name="new_mobile_number">New Mobile Number</string>
     <string name="password">Password</string>
     <string name="current_password">Current Password</string>
+    <string name="current_mobile">Current Mobile Number</string>
     <string name="new_password">New Password</string>
     <string name="enter_password">Enter Password</string>
     <string name="re_enter_password">Re-enter Password</string>
@@ -46,9 +49,11 @@
     <string name="address_one">Address One</string>
     <string name="address_two">Address Two</string>
     <string name="delivery_address">Delivery Address</string>
+    <string name="add_delivery_address">Add Delivery Address</string>
     <string name="manage_addresses">Manage Addresses</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="checkout">Checkout</string>
+    <string name="payment">Payment</string>
     <string name="total">Total:</string>
     <string name="order_summary">Order Summary:</string>
     <string name="sub_total">Subtotal:</string>
@@ -61,6 +66,7 @@
     <string name="close">Close</string>
     <string name="logout">Logout</string>
     <!--Delivery status-->
+    <string name="reload">Reload</string>
     <string name="delivered">Delivered</string>
     <string name="shipped">Shipped</string>
     <string name="processing">Processing</string>
@@ -69,6 +75,20 @@
     <string name="extra_shipping">Extra Shipping Fee:</string>
     <string name="select_address">Select delivery Address</string>
     <string name="search_product">Search a Product</string>
+    <string name="cart_added_title">Successful!</string>
+    <!--Errors-->
+    <string name="email_exists">Email Address already registered by a different user</string>
+    <string name="network_error">Please ensure you\'re connected to a proper network.</string>
+    <string name="server_error">Server under maintenance please try again later.</string>
+    <string name="error_already_in_cart">is already in your cart.</string>
+    <string name="wish_list_error_login">First login and save a product to wish-list</string>
+    <!--Operation Complete-->
+    <string name="registration_successful">You\'ve successfully registered</string>
+    <string name="cart_added_message">has been added to your cart</string>
+    <string name="wish_list_saved_message">has been saved to wish-list</string>
+    <string name="place_order_message">Please wait while your order is completing</string>
+    <string name="order_success_title">Order Successful!</string>
+    <string name="order_success_message">You\'ve Successfully Placed your order. To track your order details, select got to orders ot orders from the settings page</string>
     <string-array name="quantity_array">
         <item>1</item>
         <item>2</item>

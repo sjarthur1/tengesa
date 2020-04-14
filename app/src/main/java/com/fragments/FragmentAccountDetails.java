@@ -34,7 +34,7 @@ public class FragmentAccountDetails extends Fragment implements AccountDetailsPr
     private Button buttonPersonalInformation;
     private TextView textViewName, textViewBirthDate, textViewGender, textViewCountry,
             textViewEmail, textViewPassword, textViewPhoneNumber;
-    private ImageView imageViewEdit, imageViewEditAccount, imageViewBack;
+    private ImageView imageViewEdit, imageViewEditAccount, imageViewBack, imageViewLogo;
     
     private Context context;
     private String email, phoneNumber;
@@ -68,6 +68,7 @@ public class FragmentAccountDetails extends Fragment implements AccountDetailsPr
         if(presenter == null)
             presenter = new AccountDetailsPresenter(context, this);
     
+        imageViewLogo             = view.findViewById( R.id.image_view_logo );
         imageViewBack             = view.findViewById( R.id.image_view_back );
         buttonPersonalInformation = view.findViewById( R.id.button_personal_information );
         textViewName              = view.findViewById( R.id.text_view_name );
@@ -84,6 +85,8 @@ public class FragmentAccountDetails extends Fragment implements AccountDetailsPr
         imageViewEdit.setOnClickListener( clickListener );
         imageViewEditAccount.setOnClickListener( clickListener );
         imageViewBack.setOnClickListener( clickListener );
+        
+        ProjectConfiguration.setLogo( imageViewLogo );
         
         return view;
     }
@@ -102,7 +105,7 @@ public class FragmentAccountDetails extends Fragment implements AccountDetailsPr
                 case R.id.image_view_edit_account:
                     newFragment = FragmentAccountFields.newInstance();
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable( ProjectConfiguration.UserDetails, presenter.userData );
+                    bundle.putSerializable( ProjectConfiguration.UserDetails, presenter.accountData );
                     newFragment.setArguments( bundle );
                     StartFragment.startFragment(getFragmentManager(), "Edit User", newFragment);
                     break;

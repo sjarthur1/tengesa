@@ -25,7 +25,7 @@ public class OrdersPresenter {
     }
     
     public void getOrders(){
-        ProductServiceLayer.getOrder(username, new ReturnOrderFullCallback() {
+        ProductServiceLayer.getOrder(username, context, new ReturnOrderFullCallback() {
             @Override
             public void successful( List<FullOrder> fullOrder ) {
                 view.successful( fullOrder );

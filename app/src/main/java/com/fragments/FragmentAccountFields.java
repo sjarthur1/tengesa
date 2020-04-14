@@ -1,5 +1,6 @@
 package com.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.constants.ProjectConfiguration;
 import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
 import com.objects.UserDetails;
+import com.presenter.AccountFieldsPresenter;
 
 
 /**
@@ -21,16 +23,17 @@ import com.objects.UserDetails;
  * Use the {@link FragmentAccountFields#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentAccountFields extends Fragment {
+public class FragmentAccountFields extends Fragment implements AccountFieldsPresenter.AccountFieldsView {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static FragmentAccountFields fragment;
     private static final String ARG_PARAM2 = "param2";
-    private UserDetails userDetails;
     private Bundle bundle;
     private DialogFragment dialogFragment;
+    public AccountFieldsPresenter presenter;
+    private Context context;
     
     private View view;
-    private ImageView imageViewEditMobile, imageViewEditPassword, imageViewBack;
+    private ImageView imageViewEditMobile, imageViewEditPassword, imageViewBack, imageViewLogo;
     private TextView textViewMobileNumber, textViewPassword;
     
     public FragmentAccountFields() {
@@ -59,7 +62,10 @@ public class FragmentAccountFields extends Fragment {
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
         // Inflate the layout for this fragment
         view = inflater.inflate( R.layout.fragment_account_fields, container, false );
+        
+        context = getContext();
     
+        imageViewLogo         = view.findViewById( R.id.image_view_logo );
         imageViewBack         = view.findViewById( R.id.image_view_back );
         imageViewEditMobile   = view.findViewById( R.id.image_view_edit_mobile );
         imageViewEditPassword = view.findViewById( R.id.image_view_edit_password );
@@ -69,26 +75,28 @@ public class FragmentAccountFields extends Fragment {
         imageViewEditPassword.setOnClickListener( clickListener );
         imageViewEditMobile.setOnClickListener( clickListener );
         imageViewBack.setOnClickListener( clickListener );
+        
+        presenter = new AccountFieldsPresenter( context, this );
     
         Bundle bundle = getArguments();
-        if( bundle != null ){
-            userDetails = (UserDetails) bundle.getSerializable(ProjectConfiguration.UserDetails);
-            if( userDetails != null ) {
-                String phone = userDetails.getMobileNumber() != null ? userDetails.getMobileNumber().trim() : "";
-                String countryCode = userDetails.getCountryCode() != null ? userDetails.getCountryCode().trim() : "";
-                textViewMobileNumber.setText(countryCode+""+phone);
-            }
-        }
+        if( bundle != null )
+            presenter.userDetails = (UserDetails) bundle.getSerializable(ProjectConfiguration.UserDetails);
+            
         
         textViewPassword.setText("password");
+        ProjectConfiguration.setLogo(imageViewLogo );
         
         return view;
     }
     
-    public void setMobile(String countryCode, String mobile){
-        userDetails.setMobileNumber( mobile );
-        userDetails.setCountryCode( countryCode );
-        textViewMobileNumber.setText( countryCode+""+mobile );
+    @Override
+    public void onResume() {
+        super.onResume();
+        getAccountData();
+        
+    }
+    public void getAccountData(){
+        presenter.getAccountDetails();
     }
     
     
@@ -99,14 +107,14 @@ public class FragmentAccountFields extends Fragment {
                 case R.id.image_view_edit_mobile:
                     dialogFragment = FragmentEditPhoneNumber.newInstance();
                     bundle = new Bundle();
-                    bundle.putSerializable(ProjectConfiguration.UserDetails, userDetails);
+                    bundle.putSerializable(ProjectConfiguration.UserDetails, presenter.userDetails);
                     dialogFragment.setArguments( bundle );
                     dialogFragment.show( getFragmentManager(), "Edit Phone" );
                     break;
                 case R.id.image_view_edit_password:
                     dialogFragment = FragmentEditPassword.newInstance();
                     bundle = new Bundle();
-                    bundle.putSerializable(ProjectConfiguration.UserDetails, userDetails);
+                    bundle.putSerializable(ProjectConfiguration.UserDetails, presenter.userDetails);
                     dialogFragment.setArguments( bundle );
                     dialogFragment.show( getFragmentManager(), "Edit Password" );
                     break;
@@ -118,4 +126,17 @@ public class FragmentAccountFields extends Fragment {
     };
     
     
+    @Override
+    public void accountInformation(UserDetails userDetails) {
+        if( presenter.userDetails != null ) {
+            String phone = presenter.userDetails.getMobile_Number() != null ? presenter.userDetails.getMobile_Number().trim() : "";
+            String countryCode = presenter.userDetails.getCountryCode() != null ? presenter.userDetails.getCountryCode().trim() : "";
+            textViewMobileNumber.setText(countryCode+""+phone);
+        }
+    }
+    
+    @Override
+    public void failure(String errorMessage) {
+    
+    }
 }

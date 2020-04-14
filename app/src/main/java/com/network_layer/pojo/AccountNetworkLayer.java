@@ -145,7 +145,16 @@ public interface AccountNetworkLayer {
             ACCEPT_LANGUAGE+": "+ EN_US
     })
     @GET("api/Account/GetCountryCodes")
-    Call<List<Country>> GetCountryCodes();
+    Call<List<Country>> GetCountryCodes(@Query("IsDeliverableActive") boolean IsDeliverableActive);
+
+    @Headers({
+            CONTENT_TYPE+": "+ APPLICATION_JSON,
+            ACCEPT+": "+ APPLICATION_JSON,
+            AUTHORIZATION+": "+ BASIC_BMLWCZ_IW_MTK,
+            ACCEPT_LANGUAGE+": "+ EN_US
+    })
+    @GET("api/Account/GetCities")
+    Call<List<String>> GetCities(@Query("CountryId") int CountryId);
     
     
    

@@ -1,5 +1,7 @@
 package com.presenter;
 
+import android.content.Context;
+
 import com.network_layer.ProductServiceLayer;
 import com.network_layer.callback.CategoriesCallback;
 import com.objects.HomeProductCategories;
@@ -10,9 +12,11 @@ import java.util.List;
 
 public class CategoriesPresenter {
     
+    private Context context;
     private CategoriesView view;
     public ArrayList<Categories.MainView> category;
-    public CategoriesPresenter(CategoriesView view){
+    public CategoriesPresenter(Context context, CategoriesView view){
+        this.context = context;
         this.view = view;
         category = new ArrayList<>();
     }
@@ -22,7 +26,7 @@ public class CategoriesPresenter {
     }
     
     public void getCategories(){
-        ProductServiceLayer.getCategories( new CategoriesCallback() {
+        ProductServiceLayer.getCategories( context, new CategoriesCallback() {
             @Override
             public void onSuccess( Categories categories ) {
                 category = categories.getMainView();

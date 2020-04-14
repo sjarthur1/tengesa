@@ -2,12 +2,19 @@ package com.presenter;
 
 import android.content.Context;
 import android.widget.Toast;
+
+import com.constants.ErrorField;
 import com.constants.ProjectConfiguration;
 import com.helpers.PreferenceManagement;
 import com.network_layer.AccountServiceLayer;
+import com.network_layer.callback.ReturnCountriesCallback;
 import com.network_layer.callback.ReturnStringCallback;
+import com.objects.list_objects.Country;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class EditUserPresenter {
     
@@ -27,7 +34,7 @@ public class EditUserPresenter {
             String country = jsonObject.getString(ProjectConfiguration.CountryOfResidence);
             
             jsonObject.put( ProjectConfiguration.userID, userId );
-            AccountServiceLayer.editPersonalInformation(jsonObject, new ReturnStringCallback() {
+            AccountServiceLayer.editPersonalInformation(jsonObject, context, new ReturnStringCallback() {
                 @Override
                 public void onSuccess(String response) {
                     view.successful(response);
@@ -43,10 +50,26 @@ public class EditUserPresenter {
         }
     }
     
+    public void getCountryCodes(){
+        AccountServiceLayer.getCountryCodes( true, context, new ReturnCountriesCallback() {
+            @Override
+            public void onSuccess(List<Country> countryObject) {
+                view.successful( countryObject );
+            }
+            
+            @Override
+            public void onError(String error) {
+                view.failure( error, ErrorField.general );
+            }
+        });
+    }
+    
     
     
     public interface EditUserView{
         void setDate(String date);
+        void successful(List<Country> countryObject);
         void successful(String message);
+        void failure(String message, ErrorField field);
     }
 }

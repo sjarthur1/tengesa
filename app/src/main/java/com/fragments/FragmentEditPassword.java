@@ -2,6 +2,7 @@ package com.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Window;
 import android.widget.*;
 import androidx.fragment.app.DialogFragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.constants.ErrorField;
 import com.constants.ProjectConfiguration;
+import com.google.android.material.textfield.TextInputEditText;
 import com.mobile.tengesa.R;
 import com.objects.UserDetails;
 import com.presenter.EditPasswordPresenter;
@@ -33,9 +35,10 @@ public class FragmentEditPassword extends DialogFragment implements EditPassword
     private UserDetails userDetails;
     
     private View view;
-    private EditText editTextOldPassword, editTextPassword, editTextConfirmPassword;
+    private TextInputEditText editTextOldPassword, editTextPassword, editTextReEnterPassword;
     private Button buttonSubmit;
     private TextView textViewClose, textViewError;
+    private ImageView imageViewPassword;
     private String oldPassword, password, confirmPassword, email;
     private Context context;
     private EditPasswordPresenter presenter;
@@ -67,13 +70,15 @@ public class FragmentEditPassword extends DialogFragment implements EditPassword
         
         editTextOldPassword = view.findViewById( R.id.edit_text_old_password );
         editTextPassword = view.findViewById( R.id.edit_text_password );
-        editTextConfirmPassword = view.findViewById( R.id.edit_text_confirm_password );
+        editTextReEnterPassword = view.findViewById( R.id.edit_text_re_enter_password );
+        imageViewPassword       = view.findViewById( R.id.image_view_password );
         buttonSubmit = view.findViewById( R.id.button_submit );
         textViewError = view.findViewById( R.id.text_view_error );
         textViewClose = view.findViewById( R.id.text_view_close );
         
-        buttonSubmit.setOnClickListener(clickListener);
-        textViewClose.setOnClickListener(clickListener);
+        buttonSubmit.setOnClickListener( clickListener );
+        textViewClose.setOnClickListener( clickListener );
+        imageViewPassword.setOnClickListener( clickListener );
     
         Window window = getDialog().getWindow();
         window.setBackgroundDrawableResource(R.drawable.dialog_background);
@@ -96,6 +101,18 @@ public class FragmentEditPassword extends DialogFragment implements EditPassword
         super.onResume();
     }
     
+    private void togglePassword(){
+        if( editTextPassword.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ) {
+            editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            imageViewPassword.setImageResource( R.drawable.visibility_off_icon );
+        }else{
+            editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            imageViewPassword.setImageResource( R.drawable.visibility_on_icon );
+        }
+        editTextPassword.setSelection( editTextPassword.getText().length() );
+    }
+    
+    
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -106,7 +123,7 @@ public class FragmentEditPassword extends DialogFragment implements EditPassword
                 case R.id.button_submit:
                     oldPassword = editTextOldPassword.getText().toString();
                     password = editTextPassword.getText().toString();
-                    confirmPassword = editTextConfirmPassword.getText().toString();
+                    confirmPassword = editTextReEnterPassword.getText().toString();
                     email = userDetails.getEmail();
                     JSONObject jsonObject = new JSONObject();
                     try {
@@ -118,6 +135,9 @@ public class FragmentEditPassword extends DialogFragment implements EditPassword
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    break;
+                case R.id.image_view_password:
+                    togglePassword();
                     break;
             }
         }
@@ -138,8 +158,8 @@ public class FragmentEditPassword extends DialogFragment implements EditPassword
             editTextPassword.setError(message+"");
             editTextPassword.requestFocus();
         }else if(field.equals(ErrorField.confirmPassword)){
-            editTextConfirmPassword.setError(message+"");
-            editTextConfirmPassword.requestFocus();
+            editTextReEnterPassword.setError(message+"");
+            editTextReEnterPassword.requestFocus();
         }else{
             textViewError.setText(message+"");
             textViewError.setVisibility(View.VISIBLE);

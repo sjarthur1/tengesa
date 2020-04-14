@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
@@ -13,7 +14,9 @@ import android.view.ViewGroup;
 import com.constants.ProjectConfiguration;
 import com.helpers.PreferenceManagement;
 import com.mobile.access_control.ActivityAccessControl;
+import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
+import com.objects.UserDetails;
 import com.presenter.StartFragment;
 
 
@@ -31,6 +34,7 @@ public class FragmentAccount extends Fragment {
     private View view;
     
     private TextView textViewName;
+    private ImageView imageViewLogo;
     private LinearLayout linearLayoutMyWishList, linearLayoutOrders, linearLayoutMyAccount, linearLayoutAddress, linearLayoutLogout;
     private Button buttonLogout;
     
@@ -64,7 +68,8 @@ public class FragmentAccount extends Fragment {
     
         context = getContext();
         
-        textViewName       = view.findViewById( R.id.text_view_name );
+        textViewName           = view.findViewById( R.id.text_view_name );
+        imageViewLogo          = view.findViewById( R.id.image_view_logo );
         linearLayoutMyWishList = view.findViewById( R.id.linear_layout_my_wish_list );
         linearLayoutOrders     = view.findViewById( R.id.linear_layout_orders );
         linearLayoutMyAccount  = view.findViewById( R.id.linear_layout_my_account );
@@ -79,16 +84,21 @@ public class FragmentAccount extends Fragment {
         linearLayoutLogout.setOnClickListener( clickListener );
         buttonLogout.setOnClickListener(clickListener);
         
+        ProjectConfiguration.setLogo( imageViewLogo );
         return view;
     }
     
     @Override
     public void onResume() {
         super.onResume();
+        if(MainActivity.getInstance().getUserDetails() != null)
+            textViewName.setText(MainActivity.getInstance().getUserDetails().getFullname());
         username = PreferenceManagement.readString( context, ProjectConfiguration.userId, null );
         if( username == null ) {
             StartFragment.startFragment( getFragmentManager(), ProjectConfiguration.page_home, FragmentHome.newInstance() );
         }
+    
+        MainActivity.getInstance().clearBundle();
     }
     
     View.OnClickListener clickListener = new View.OnClickListener() {
@@ -96,17 +106,17 @@ public class FragmentAccount extends Fragment {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.linear_layout_my_wish_list:
-                    StartFragment.startFragment(getFragmentManager(), "Wish Listt", FragmentWishList.newInstance());
+                    StartFragment.startFragment(getFragmentManager(), ProjectConfiguration.page_wish_list, FragmentWishList.newInstance());
                     break;
                 case R.id.linear_layout_orders:
                     //getFragmentManager().beginTransaction().replace(R.id.linear_layout_main, FragmentAccountDetails.newInstance()).commit();
-                    StartFragment.startFragment(getFragmentManager(), "Orders", FragmentOrders.newInstance());
+                    StartFragment.startFragment(getFragmentManager(), ProjectConfiguration.page_orders, FragmentOrders.newInstance());
                     break;
                 case R.id.linear_layout_my_account:
-                    StartFragment.startFragment(getFragmentManager(), "My Account", FragmentAccountDetails.newInstance());
+                    StartFragment.startFragment(getFragmentManager(), ProjectConfiguration.page_account_detail, FragmentAccountDetails.newInstance());
                     break;
                 case R.id.linear_layout_address:
-                    StartFragment.startFragment(getFragmentManager(), "Address", FragmentAddress.newInstance());
+                    StartFragment.startFragment(getFragmentManager(), ProjectConfiguration.page_address, FragmentAddress.newInstance());
                     break;
                 case R.id.linear_layout_logout:
                     PreferenceManagement.RemoveItem(context, ProjectConfiguration.userId);
@@ -121,6 +131,8 @@ public class FragmentAccount extends Fragment {
             }
         }
     };
+    
+    
     
     
 }

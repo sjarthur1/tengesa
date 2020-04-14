@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class UserAddresses implements Serializable, Parcelable {
     private String AddressID, UserID, Fullname, CountryCode, Country_Code, Mobile_Number, Country, City, Area,
-            StreetNameOrNo, Address1, Address2, NearestLandmark, LocationType, ShippingNote;
+            StreetNameOrNo, Address1, Address2, NearestLandmark, LocationType, ShppingNote;
     
     public UserAddresses(){
     
@@ -28,7 +28,7 @@ public class UserAddresses implements Serializable, Parcelable {
         Address2 = in.readString();
         NearestLandmark = in.readString();
         LocationType = in.readString();
-        ShippingNote = in.readString();
+        ShppingNote = in.readString();
     }
     
     public static final Creator<UserAddresses> CREATOR = new Creator<UserAddresses>() {
@@ -156,11 +156,11 @@ public class UserAddresses implements Serializable, Parcelable {
     }
     
     public String getShippingNote() {
-        return ShippingNote;
+        return ShppingNote;
     }
     
     public void setShippingNote(String shippingNote) {
-        ShippingNote = shippingNote;
+        ShppingNote = shippingNote;
     }
     
     @Override
@@ -185,6 +185,6 @@ public class UserAddresses implements Serializable, Parcelable {
         parcel.writeString(Address2);
         parcel.writeString(NearestLandmark);
         parcel.writeString(LocationType);
-        parcel.writeString(ShippingNote);
+        parcel.writeString(ShppingNote);
     }
 }

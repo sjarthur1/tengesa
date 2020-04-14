@@ -1,5 +1,7 @@
 package com.presenter;
 
+import android.content.Context;
+
 import com.network_layer.ProductServiceLayer;
 import com.network_layer.callback.ProductDataCallback;
 import com.objects.ProductData;
@@ -8,10 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HorizontalWithoutButtonPresenter {
-    HorizontalWithoutButtonView view;
+    private Context context;
+    private HorizontalWithoutButtonView view;
     public List<ProductData> currentProductList;
     
-    public HorizontalWithoutButtonPresenter( HorizontalWithoutButtonView view ){
+    public HorizontalWithoutButtonPresenter(Context context, HorizontalWithoutButtonView view ){
+        this.context = context;
         this.view = view;
         currentProductList = new ArrayList<>();
     }
@@ -21,7 +25,7 @@ public class HorizontalWithoutButtonPresenter {
     }
     
     public void getCategoryById(String categoryId, final int round){
-        ProductServiceLayer.getProductsByCategoryID(categoryId, new ProductDataCallback() {
+        ProductServiceLayer.getProductsByCategoryID(categoryId, context, new ProductDataCallback() {
             @Override
             public void onSuccess(ProductData productData) {
             

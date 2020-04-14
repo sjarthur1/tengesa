@@ -1,5 +1,6 @@
 package com.presenter;
 
+import android.content.Context;
 import android.util.Log;
 import com.network_layer.ProductServiceLayer;
 import com.network_layer.callback.ProductDataCallback;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SingleCategoryPresenter {
-    
+    private Context context;
     private CategoryView view;
     public List<ProductData> productLists;
     public SingleCategoryPresenter(CategoryView view){
@@ -23,7 +24,7 @@ public class SingleCategoryPresenter {
     
     public void getCategoryById( String categoryId ){
         
-        ProductServiceLayer.getProductsByCategoryID(categoryId, new ProductDataCallback() {
+        ProductServiceLayer.getProductsByCategoryID(categoryId, context, new ProductDataCallback() {
             @Override
             public void onSuccess(ProductData productData) {
             
@@ -43,7 +44,7 @@ public class SingleCategoryPresenter {
     }
     
     public void getSearchProductResults( String searchText ){
-        ProductServiceLayer.getSearchProductResults(searchText, new ProductDataCallback() {
+        ProductServiceLayer.getSearchProductResults(searchText, context, new ProductDataCallback() {
             @Override
             public void onSuccess(ProductData productData) {
         

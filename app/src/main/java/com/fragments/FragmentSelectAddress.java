@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adapters.SelectAddressAdapter;
+import com.constants.ProjectConfiguration;
 import com.mobile.access_control.ActivityAccessControl;
 import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
@@ -41,7 +42,7 @@ public class FragmentSelectAddress extends Fragment implements AddressPresenter.
     private Fragment fragmentNew;
     private static FragmentSelectAddress fragment;
     private List<UserAddresses> addressList;
-    private ImageView imageViewBack;
+    private ImageView imageViewBack, imageViewLogo, imageViewAddress;
     
     private TextView textViewTitle;
     private Button buttonAddAddress;
@@ -79,7 +80,9 @@ public class FragmentSelectAddress extends Fragment implements AddressPresenter.
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_select_address, container, false);
     
-        imageViewBack    = view.findViewById( R.id.image_view_back );
+        imageViewLogo       = view.findViewById( R.id.image_view_logo );
+        imageViewAddress    = view.findViewById( R.id.image_view_address );
+        imageViewBack       = view.findViewById( R.id.image_view_back );
         textViewTitle       = view.findViewById( R.id.text_view_title );
         buttonAddAddress    = view.findViewById( R.id.button_add_address );
         recyclerViewAddress = view.findViewById( R.id.recycler_view_address );
@@ -89,6 +92,9 @@ public class FragmentSelectAddress extends Fragment implements AddressPresenter.
         fragmentManager = getFragmentManager();
         if( presenter == null )
             presenter = new AddressPresenter(context,this);
+    
+        ProjectConfiguration.setLogo( imageViewLogo );
+        ProjectConfiguration.setAddressLogo( imageViewAddress );
         
         buttonAddAddress.setOnClickListener( clickListener );
         imageViewBack.setOnClickListener( clickListener );
@@ -105,13 +111,20 @@ public class FragmentSelectAddress extends Fragment implements AddressPresenter.
         return view;
     }
     
+    @Override
+    public void onResume() {
+        super.onResume();
+        //MainActivity.getInstance().refreshOrderData();
+        MainActivity.getInstance().clearBundle();
+    }
+    
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch ( view.getId() ) {
                 case R.id.button_add_address:
                     Fragment fragmentNew = FragmentAddAddress.newInstance();
-                    StartFragment.startFragment(fragmentManager, "Add Address", fragmentNew);
+                    StartFragment.startFragment( fragmentManager, "Add Address", fragmentNew );
                     break;
                 case R.id.image_view_back:
                     MainActivity.getInstance().onBackPressed();

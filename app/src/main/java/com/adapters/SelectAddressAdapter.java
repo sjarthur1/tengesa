@@ -31,6 +31,7 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressAdap
     private FragmentManager fragmentManager;
     private Fragment fragment;
     private AddressPresenter presenter;
+    private Bundle bundle;
     
     public SelectAddressAdapter(Context context, List<UserAddresses> addressList, FragmentManager fragmentManager, AddressPresenter presenter) {
         this.context = context;
@@ -52,11 +53,11 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressAdap
         holder.textViewStreet.setText( addressObject.getStreetNameOrNo() );
         holder.textViewCity.setText( addressObject.getCity() );
         holder.textViewCountry.setText( addressObject.getCountry() );
-        if(position == addressList.size()-1){
+        /*if(position == addressList.size()-1){
             holder.buttonSelectAddress.setVisibility(View.VISIBLE);
         }else{
             holder.buttonSelectAddress.setVisibility(View.GONE);
-        }
+        }*/
         
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -64,17 +65,17 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressAdap
                 switch (view.getId()){
                     case R.id.image_view_edit:
                         fragment = FragmentAddAddress.newInstance();
-                        Bundle bundle = new Bundle();
+                        bundle = new Bundle();
                         bundle.putSerializable("data", addressObject);
                         fragment.setArguments( bundle );
                         StartFragment.startFragment(fragmentManager, "Add Address", fragment);
                         break;
                     case R.id.button_select_address:
                         fragment = FragmentPayment.newInstance();
-                        Bundle bundle1 = new Bundle();
-                        bundle1.putParcelable( ProjectConfiguration.ADDRESS, addressObject );
-                        fragment.setArguments( bundle1 );
-                        StartFragment.startFragment(fragmentManager, "Add Address", fragment);
+                        bundle = new Bundle();
+                        bundle.putParcelable( ProjectConfiguration.ADDRESS, addressObject );
+                        fragment.setArguments( bundle );
+                        StartFragment.startFragment(fragmentManager, "Select Address", fragment);
                         break;
                 }
             }

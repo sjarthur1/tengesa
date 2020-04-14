@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.adapters.AddressAdapter;
+import com.constants.ProjectConfiguration;
 import com.mobile.access_control.ActivityAccessControl;
 import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
@@ -39,7 +40,7 @@ public class FragmentAddress extends Fragment implements AddressPresenter.Addres
     private static FragmentAddress fragment;
     private List<UserAddresses> addressList;
     
-    private ImageView imageViewBack;
+    private ImageView imageViewBack, imageViewLogo, imageViewAddress;
     private TextView textViewTitle;
     private Button buttonAddAddress;
     private RecyclerView recyclerViewAddress;
@@ -78,7 +79,9 @@ public class FragmentAddress extends Fragment implements AddressPresenter.Addres
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_address, container, false);
     
+        imageViewLogo       = view.findViewById( R.id.image_view_logo );
         imageViewBack       = view.findViewById( R.id.image_view_back );
+        imageViewAddress    = view.findViewById( R.id.image_view_address );
         textViewTitle       = view.findViewById( R.id.text_view_title );
         buttonAddAddress    = view.findViewById( R.id.button_add_address );
         recyclerViewAddress = view.findViewById( R.id.recycler_view_address );
@@ -88,6 +91,9 @@ public class FragmentAddress extends Fragment implements AddressPresenter.Addres
         fragmentManager = getFragmentManager();
         if(presenter == null)
             presenter = new AddressPresenter(context,this);
+    
+        ProjectConfiguration.setLogo( imageViewLogo );
+        ProjectConfiguration.setAddressLogo( imageViewAddress );
     
         imageViewBack.setOnClickListener( clickListener );
         buttonAddAddress.setOnClickListener(clickListener);
@@ -99,9 +105,14 @@ public class FragmentAddress extends Fragment implements AddressPresenter.Addres
         recyclerViewAddress.setLayoutManager( layoutManager );
         recyclerViewAddress.setAdapter( addressAdapter );
         
-        presenter.getUserAddress();
         
         return view;
+    }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.getUserAddress();
     }
     
     View.OnClickListener clickListener = new View.OnClickListener() {
@@ -112,6 +123,7 @@ public class FragmentAddress extends Fragment implements AddressPresenter.Addres
                     MainActivity.getInstance().onBackPressed();
                     break;
                 case R.id.button_add_address:
+                    buttonAddAddress.setEnabled( false );
                     Fragment fragmentNew = FragmentAddAddress.newInstance();
                     StartFragment.startFragment(fragmentManager, "Add Address", fragmentNew);
                     break;
@@ -123,8 +135,9 @@ public class FragmentAddress extends Fragment implements AddressPresenter.Addres
     @Override
     public void successful(List<UserAddresses> userAddresses) {
         if(userAddresses.size() > 0){
-            buttonAddAddress.setEnabled(false);
-            buttonAddAddress.setVisibility( View.GONE );
+            addressList.clear();
+            buttonAddAddress.setEnabled(true);
+            //buttonAddAddress.setVisibility( View.GONE );
             addressList.addAll( userAddresses );
             recyclerViewAddress.post(new Runnable() {
                 @Override
@@ -147,10 +160,10 @@ public class FragmentAddress extends Fragment implements AddressPresenter.Addres
                     addressAdapter.notifyDataSetChanged();
                 }
             });
-            if(addressList.size() == 0) {
+            //if(addressList.size() == 0) {
                 buttonAddAddress.setVisibility( View.VISIBLE );
                 buttonAddAddress.setEnabled(true);
-            }
+            //}
         }
     }
     

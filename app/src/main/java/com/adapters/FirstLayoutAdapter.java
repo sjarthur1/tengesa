@@ -65,8 +65,8 @@ public class FirstLayoutAdapter extends RecyclerView.Adapter<FirstLayoutAdapter.
     @Override
     public void onBindViewHolder( @NonNull FirstLayourViewHolder holder, int position ) {
         final ProductData productData = itemList.get( position );
-        String imageKey = productData.getImages().entrySet().iterator().next().getKey();
-        String imageValue = productData.getImages().get(imageKey).toString();
+        String imageKey = productData.getImagesThumb().entrySet().iterator().next().getKey();
+        String imageValue = productData.getImagesThumb().get(imageKey).toString();
         Picasso.get().load(imageValue).into(holder.imageViewItemImage);
         holder.textViewGadget.setText( itemList.get(position).getTitle().trim() );
         holder.textViewPrice.setText( itemList.get(position).getPrice().trim() );
@@ -128,19 +128,19 @@ public class FirstLayoutAdapter extends RecyclerView.Adapter<FirstLayoutAdapter.
     public void saveToWishList(String productId, final String product ){
         String username = PreferenceManagement.readString(context, ProjectConfiguration.userId, null);
         if( username != null ) {
-            WishListServiceLayer.saveWishList(username, productId, new ReturnStringCallback() {
+            WishListServiceLayer.saveWishList(username, productId, context, new ReturnStringCallback() {
                 @Override
                 public void onSuccess(String response) {
-                    launchDialog("Successful", product + " has been added to wishlist, do you wish to continue to wishlist?", ActionOption.wishlist);
+                    Toast.makeText( context, product+" "+context.getString( R.string.wish_list_saved_message), Toast.LENGTH_LONG ).show();
                 }
         
                 @Override
                 public void onError(String error) {
-                    //view.failed( error );
+                    Toast.makeText( context, error, Toast.LENGTH_LONG ).show();
                 }
             });
         }else{
-            Toast.makeText( context, "First login and save product to wishlist", Toast.LENGTH_LONG ).show();
+            Toast.makeText( context, context.getString( R.string.wish_list_error_login ), Toast.LENGTH_LONG ).show();
         }
     }
     
@@ -155,14 +155,14 @@ public class FirstLayoutAdapter extends RecyclerView.Adapter<FirstLayoutAdapter.
                     jsonObject.put( ProjectConfiguration.username,  username  );
                     jsonObject.put( ProjectConfiguration.productId, productId );
                     jsonObject.put( ProjectConfiguration.quantity,  quantity  );
-                    CartServiceLayer.saveCart(jsonObject, new ReturnBooleanCallback() {
+                    CartServiceLayer.saveCart(jsonObject, context, new ReturnBooleanCallback() {
                         @Override
                         public void onSuccess(Boolean response) {
                             if(response) {
-                                launchDialog("Successful", product + " has been added to cart, do you wish to continue to cart?", ActionOption.cart);
                                 MainActivity.getInstance().getCart();
+                                Toast.makeText( context, product+" "+context.getString( R.string.cart_added_message), Toast.LENGTH_LONG ).show();
                             }else{
-                                Toast.makeText( context, product+" is already in the cart", Toast.LENGTH_LONG ).show();
+                                Toast.makeText( context, product+" "+context.getString( R.string.error_already_in_cart), Toast.LENGTH_LONG ).show();
                             }
                         }
                         
@@ -177,7 +177,7 @@ public class FirstLayoutAdapter extends RecyclerView.Adapter<FirstLayoutAdapter.
             } else {
                 boolean stored = ManageLocalProductIds.editProductIdList(context, productId + "|" + quantity);
                 if( stored ){
-                    launchDialog( "Successful", product+" has been added to cart, do you wish to continue to cart?", ActionOption.cart );
+                    Toast.makeText( context, product+" "+context.getString( R.string.cart_added_message ), Toast.LENGTH_LONG ).show();
                     MainActivity.getInstance().getCart();
                 }
             }

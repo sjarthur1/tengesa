@@ -5,7 +5,7 @@ public class CartObject {
     private int Quantity;
     private double Price;
     private double SubTotal;
-    private double ShippingAmount;
+    private double ShippingFee;
     private double TotalAmount;
     private int UserStock;
     
@@ -98,12 +98,12 @@ public class CartObject {
         SubTotal = subTotal;
     }
     
-    public double getShippingAmount() {
-        return ShippingAmount;
+    public double getShippingFee() {
+        return ShippingFee;
     }
     
-    public void setShippingAmount(double shippingAmount) {
-        ShippingAmount = shippingAmount;
+    public void setShippingAmount(double shippingFee) {
+        ShippingFee = shippingFee;
     }
     
     public double getTotalAmount() {

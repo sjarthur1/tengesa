@@ -1,5 +1,6 @@
 package com.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class FragmentHorizontalWithButton extends Fragment implements Horizontal
     private static FragmentHorizontalWithButton fragment;
     private static final String ARG_PARAM2 = "param2";
     private List<ProductData> items;
+    private Context context;
     
     // TODO: Rename and change types of parameters
     private View view;
@@ -42,12 +44,10 @@ public class FragmentHorizontalWithButton extends Fragment implements Horizontal
     
     /**
      * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment FragmentHorizontalWithButton.
+     * this fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentHorizontalWithButton newInstance(String param1, String param2) {
+    public static FragmentHorizontalWithButton newInstance() {
         fragment = new FragmentHorizontalWithButton();
         return fragment;
     }
@@ -62,10 +62,11 @@ public class FragmentHorizontalWithButton extends Fragment implements Horizontal
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_horizontal_with_button, container, false);
     
+        context = getContext();
         recyclerViewFirstList  = view.findViewById( R.id.recycler_view_list );
         
         if(presenter == null)
-            presenter = new HorizontalWithButtonPresenter(this);
+            presenter = new HorizontalWithButtonPresenter( context, this);
     
         items = new ArrayList<>();
     

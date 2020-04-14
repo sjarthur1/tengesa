@@ -13,6 +13,7 @@ import com.network_layer.ProductServiceLayer;
 import com.network_layer.callback.CartObjectCallback;
 import com.network_layer.callback.CategoriesCallback;
 import com.network_layer.callback.ProductDataCallback;
+import com.network_layer.callback.ReturnBooleanCallback;
 import com.network_layer.callback.ReturnStringCallback;
 import com.network_layer.callback.ReturnStringListCallback;
 import com.objects.CartObject;
@@ -34,6 +35,7 @@ public class HomePresenter {
     public List<HomeProductCategories> homeProductCategory, currentCategories;
     public ArrayList<List<ProductData>> currentProductList;
     public List<String> homeBannerList;
+    int index = 0;
     
     public HomePresenter(Context context, HomeInterface view){
         this.context = context;
@@ -49,7 +51,7 @@ public class HomePresenter {
     }
     
     public void getHomeBanners(){
-        ProductServiceLayer.getHomeBanners(new ReturnStringListCallback() {
+        ProductServiceLayer.getHomeBanners(context, new ReturnStringListCallback() {
             @Override
             public void onSuccess(List<String> response) {
                 homeProductCategory.clear();
@@ -71,7 +73,7 @@ public class HomePresenter {
     
     public void getCategories(){
         
-        ProductServiceLayer.getHomeProducts(new CategoriesCallback() {
+        ProductServiceLayer.getHomeProducts( context, new CategoriesCallback() {
             @Override
             public void onSuccess(Categories categories) {
         
@@ -85,6 +87,7 @@ public class HomePresenter {
                     getCategoryById( homeProductCategories.get(round).getCategoryID(), round );
                 }
                 //view.successful( homeProductCategories );
+               // getProductsBasingOnCategory( index );
             }
     
             @Override
@@ -94,8 +97,28 @@ public class HomePresenter {
         });
     }
     
+    /*private void getProductsBasingOnCategory(final int nextIndex){
+       getCategoryById(homeProductCategory.get( nextIndex ).getCategoryID(), 0, new ReturnBooleanCallback() {
+           @Override
+           public void onSuccess(Boolean response) {
+               index = nextIndex+1;
+                if(index < homeProductCategory.size()){
+                    getProductsBasingOnCategory( index );
+                }else{
+                    view.successful( homeProductCategory );
+                }
+           }
+    
+           @Override
+           public void onError(String error) {
+        
+           }
+       });
+    }*/
+    
+    //public void getCategoryById(String categoryId, final int round, final ReturnBooleanCallback booleanCallback){
     public void getCategoryById(String categoryId, final int round){
-        ProductServiceLayer.getProductsByCategoryID(categoryId, new ProductDataCallback() {
+        ProductServiceLayer.getProductsByCategoryID(categoryId, context, new ProductDataCallback() {
             @Override
             public void onSuccess(ProductData productData) {
             
@@ -105,6 +128,7 @@ public class HomePresenter {
             public void onSuccess( List<ProductData> productList ) {
                 currentProductList.add( productList );
                 view.successful( productList, round );
+                //booleanCallback.onSuccess( true );
             }
             
             @Override
@@ -118,6 +142,7 @@ public class HomePresenter {
     
     public interface HomeInterface{
         void successful( List<HomeProductCategories> categories );
+        //void successful();
         void bannersReturned( List<String> banners );
         void successful( List<ProductData> categories, int round );
         void failure( String message );

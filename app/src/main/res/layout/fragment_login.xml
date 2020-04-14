@@ -1,85 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context="com.fragments.FragmentHome"
-        android:gravity="center"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical">
-    <ScrollView
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fragments.FragmentHome"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:isScrollContainer="true">
+        android:layout_gravity="center">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingTop="40dp"
-            android:paddingBottom="40dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:orientation="vertical">
-            <LinearLayout
+            <ImageView
+                android:id="@+id/image_view_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_gravity="center"/>
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="120dp"
-                    android:src="@drawable/tengesadot_com"/>
-            </LinearLayout>
-            
-            <LinearLayout
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:isScrollContainer="true">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="2"
                     android:padding="30dp">
-                
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/email"
-                    app:errorEnabled="true"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/email"
+                        app:errorEnabled="true"
                         app:boxStrokeWidth="5dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_text_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
-                        android:inputType="text"
-                        android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@._"
-                        android:drawableLeft="@drawable/icon_email_black">
-                        
-                    </com.google.android.material.textfield.TextInputEditText>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/password"
-                    app:errorEnabled="true"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_text_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
-                        android:inputType="textPassword"
-                        android:drawableLeft="@drawable/icon_key_black">
-                        
-                    </com.google.android.material.textfield.TextInputEditText>
-                </com.google.android.material.textfield.TextInputLayout>
-                
-                <TextView
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:inputType="textEmailAddress"
+                            android:singleLine="true"
+                            android:focusedByDefault="false"
+                            android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@._"
+                            android:drawableLeft="@drawable/icon_email_black">
+                            
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/password"
+                            app:errorEnabled="true"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_text_password"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusedByDefault="false"
+                                android:drawablePadding="10dp"
+                                android:inputType="textPassword"
+                                android:drawableLeft="@drawable/icon_key_black">
+                                
+                            </com.google.android.material.textfield.TextInputEditText>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <ImageView
+                            android:id="@+id/image_view_password"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/visibility_off_icon"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:layout_marginTop="10dp"/>
+                    </RelativeLayout>
+                    
+                    <TextView
                         android:id="@+id/text_view_forgot_password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/forgot_password"
                         android:layout_marginRight="5dp"
                         android:layout_gravity="right"/>
-                <Button
+                    <Button
                         android:id="@+id/button_login"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
@@ -89,27 +106,36 @@
                         android:textColor="@color/colorWhite"
                         android:text="@string/title_login"
                         android:textSize="20sp"
-                android:background="@drawable/button_blue"/>
-            </LinearLayout>
-            
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingBottom="20dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:text="@string/dont_have_account"/>
-                <TextView
-                    android:id="@+id/text_view_register"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="@string/title_register"/>
-            </LinearLayout>
+                        android:background="@drawable/button_blue"/>
+    
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:paddingTop="20dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:text="@string/dont_have_account"/>
+                        <TextView
+                            android:id="@+id/text_view_register"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="@string/title_register"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </LinearLayout>
+    <!--<ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_margin="20dp"
+            android:src="@drawable/icon_back_blue" />-->
+</RelativeLayout>

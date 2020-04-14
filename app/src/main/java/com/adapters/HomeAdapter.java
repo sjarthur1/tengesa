@@ -1,20 +1,26 @@
 package com.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+
+import com.fragments.FragmentCategory;
 import com.mobile.tengesa.R;
 import com.objects.HomeProductCategories;
 import com.objects.ProductData;
 import com.presenter.HomePresenter;
+import com.presenter.StartFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +30,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeAdapterHol
     private List<HomeProductCategories> arrayList;
     private HomePresenter presenter;
     private FragmentManager fragmentManager;
+    private Fragment fragment;
     public HomeAdapter(Context context, List<HomeProductCategories> arrayList, FragmentManager fragmentManager, HomePresenter presenter){
         this.context = context;
         this.arrayList = arrayList;
@@ -45,7 +52,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeAdapterHol
     
     @Override
     public void onBindViewHolder(@NonNull HomeAdapterHolder holder, int position) {
-        HomeProductCategories homeProductCategory = arrayList.get(position);
+        final HomeProductCategories homeProductCategory = arrayList.get(position);
     
         try {
             if ( homeProductCategory.getCategoryDescription() != null) {
@@ -65,20 +72,38 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeAdapterHol
                 Log.e("Printing", exc.getLocalizedMessage());
             }
         } else {
-            try {
-                List<ProductData> items = presenter.currentProductList.get( position - 1 );
-                FirstLayoutAdapter layoutAdapter = new FirstLayoutAdapter(context, items, fragmentManager);
-                holder.recyclerViewList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-                holder.recyclerViewList.setAdapter(layoutAdapter);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }/* else {
-            List<ProductData> items = presenter.currentProductList.get(position-1);
-            SecondHorizontalLayoutAdapter secondHorizontalLayoutAdapter = new SecondHorizontalLayoutAdapter(context, items, fragmentManager);
-            holder.recyclerViewList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-            holder.recyclerViewList.setAdapter( secondHorizontalLayoutAdapter );
-        }*/
+            /*if (position % 2 == 0) {
+                try {
+                    List<ProductData> items = presenter.currentProductList.get(position - 1);
+                    SecondHorizontalLayoutAdapter layoutAdapter = new SecondHorizontalLayoutAdapter(context, items, fragmentManager);
+                    holder.recyclerViewList.setLayoutManager(new GridLayoutManager(context, 2, RecyclerView.HORIZONTAL, false));
+                    holder.recyclerViewList.setAdapter(layoutAdapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {*/
+                try {
+                    List<ProductData> items = presenter.currentProductList.get(position - 1);
+                    FirstLayoutAdapter layoutAdapter = new FirstLayoutAdapter(context, items, fragmentManager);
+                    holder.recyclerViewList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+                    holder.recyclerViewList.setAdapter(layoutAdapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            //}
+    
+            holder.textViewSeeAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fragment = FragmentCategory.newInstance();
+                    Bundle bundle = new Bundle();
+                    bundle.putString( "CategoryId", homeProductCategory.getCategoryID() );
+                    fragment.setArguments( bundle );
+                    StartFragment.startFragment( fragmentManager, "CategoryItems", fragment );
+                }
+            });
+        }
+        
         
     }
     

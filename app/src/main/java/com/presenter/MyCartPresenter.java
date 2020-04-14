@@ -46,7 +46,7 @@ public class MyCartPresenter {
         try {
             jsonObject.put( ProjectConfiguration.username, username );
             jsonObject.put( ProjectConfiguration.localCartProducts, jsArray );
-            CartServiceLayer.getFullCart(jsonObject, new CartObjectCallback() {
+            CartServiceLayer.getFullCart(jsonObject, context, new CartObjectCallback() {
                 @Override
                 public void onSuccess(List<CartObject> cartObject) {
                     cartList = cartObject;
@@ -75,7 +75,7 @@ public class MyCartPresenter {
                 arrayList.add(cartItems[index].trim());
             }
         }
-        CartServiceLayer.removeCart(mongoId, new ReturnStringCallback() {
+        CartServiceLayer.removeCart(mongoId, context, new ReturnStringCallback() {
             @Override
             public void onSuccess(String response) {
                 view.successful( position );
@@ -106,7 +106,7 @@ public class MyCartPresenter {
     }
     
     public void updateCart(final int position, final int quantity, String mongoId){
-        CartServiceLayer.updateCart(mongoId, quantity, new ReturnBooleanCallback() {
+        CartServiceLayer.updateCart(mongoId, quantity, context, new ReturnBooleanCallback() {
             @Override
             public void onSuccess(Boolean response) {
                 if(response == true){
@@ -135,7 +135,7 @@ public class MyCartPresenter {
     public void saveToWishList( String productId ){
         String username = PreferenceManagement.readString(context, ProjectConfiguration.userId, null);
         
-        WishListServiceLayer.saveWishList(username, productId, new ReturnStringCallback() {
+        WishListServiceLayer.saveWishList(username, productId, context, new ReturnStringCallback() {
             @Override
             public void onSuccess(String response) {
                 view.successful();
@@ -188,7 +188,7 @@ public class MyCartPresenter {
         try {
             jsonObject.put(ProjectConfiguration.username, username);
             jsonObject.put(ProjectConfiguration.localCartProducts, jsonArray);
-            CartServiceLayer.getTotalAmount(jsonObject, new OrderDataCallback() {
+            CartServiceLayer.getTotalAmount(jsonObject, context, new OrderDataCallback() {
                 @Override
                 public void onSuccess(OrderData orderData) {
                     view.showOrderTotals(orderData);

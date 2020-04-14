@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.adapters.CountriesListAdapter;
 import com.constants.ErrorField;
 import com.constants.ProjectConfiguration;
+import com.google.android.material.textfield.TextInputEditText;
 import com.mobile.tengesa.R;
 import com.objects.UserDetails;
 import com.objects.list_objects.Country;
@@ -45,7 +46,7 @@ public class FragmentEditPhoneNumber extends DialogFragment implements EditPhone
     
     private View view;
     private Spinner spinnerCountryCode;
-    private EditText editTextPhoneNumber, editTextPassword;
+    private TextInputEditText editTextPhoneNumber, editTextPassword, editTextCurrentPhoneNumber;
     private TextView textViewPhoneError, textViewError, textViewClose;
     private Button buttonSubmit;
     private Context context;
@@ -79,6 +80,7 @@ public class FragmentEditPhoneNumber extends DialogFragment implements EditPhone
         context = getContext();
         spinnerCountryCode  = view.findViewById( R.id.spinner_country_code );
         editTextPhoneNumber = view.findViewById( R.id.edit_text_phone_number );
+        editTextCurrentPhoneNumber = view.findViewById( R.id.edit_text_current_phone_number );
         editTextPassword    = view.findViewById( R.id.edit_text_password );
         textViewPhoneError  = view.findViewById( R.id.text_view_phone_error );
         textViewError       = view.findViewById( R.id.text_view_error );
@@ -86,20 +88,13 @@ public class FragmentEditPhoneNumber extends DialogFragment implements EditPhone
         buttonSubmit        = view.findViewById( R.id.button_submit );
         
         countryCodes = new ArrayList<>();
-        countryList = new ArrayList<>();
+        countryList  = new ArrayList<>();
         codesAdapter = new CountriesListAdapter( context, countryList );
         spinnerCountryCode.setAdapter( codesAdapter );
         
         Window window = getDialog().getWindow();
         window.setBackgroundDrawableResource( R.drawable.dialog_background );
         window.setLayout( 300, LinearLayout.LayoutParams.WRAP_CONTENT );
-    
-        /*for(int index = 0; index < countryList.size(); index++){
-            String[] countryItemList = countryList.get(index).split(",");
-            countryCodes.add("+"+countryItemList[0]);
-        }
-    
-        String[] countryItemList = countryList.get(0).split(",");*/
         
         if( presenter == null )
             presenter = new EditPhoneNumberPresenter( context, this );
@@ -109,11 +104,11 @@ public class FragmentEditPhoneNumber extends DialogFragment implements EditPhone
             userDetails = bundle.containsKey(ProjectConfiguration.UserDetails) ?
                     (UserDetails) bundle.getSerializable(ProjectConfiguration.UserDetails) : null;
             if(userDetails != null){
-                editTextPhoneNumber.setText(userDetails.getMobileNumber());
+                editTextCurrentPhoneNumber.setText(userDetails.getMobile_Number());
             }
         }
         
-        phone = userDetails.getMobileNumber() != null ? userDetails.getMobileNumber() : "";
+        phone = userDetails.getMobile_Number() != null ? userDetails.getMobile_Number() : "";
         countryCode = userDetails.getCountryCode() != null ? userDetails.getCountryCode() : "";
         
         textViewClose.setOnClickListener( clickListener );
@@ -122,14 +117,14 @@ public class FragmentEditPhoneNumber extends DialogFragment implements EditPhone
         spinnerCountryCode.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                countryCode = countryList.get(position).getCode();
-                spinnerCountryCode.setBackgroundResource( R.drawable.toggle_left_off );
+                userDetails.setCountryCode( countryList.get(position).getCode() );
+                spinnerCountryCode.setBackgroundResource( R.drawable.edit_text_border );
             }
         
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 if( countryCode == null )
-                    spinnerCountryCode.setBackgroundResource( R.drawable.toggle_left_off );
+                    spinnerCountryCode.setBackgroundResource( R.drawable.edit_text_border );
             }
         });
         
@@ -160,7 +155,7 @@ public class FragmentEditPhoneNumber extends DialogFragment implements EditPhone
                         jsonObject.put(ProjectConfiguration.MobileNumber, phoneNumber);
                         jsonObject.put(ProjectConfiguration.password, password);
                         jsonObject.put(ProjectConfiguration.Email, Email);
-                        jsonObject.put(ProjectConfiguration.CountryCode, countryCode);
+                        jsonObject.put(ProjectConfiguration.CountryCode, userDetails.getCountryCode() );
                         presenter.editMobileNumber(jsonObject);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -177,7 +172,7 @@ public class FragmentEditPhoneNumber extends DialogFragment implements EditPhone
     public void successful(String message) {
         Toast.makeText(context, message+"", Toast.LENGTH_LONG).show();
         long phone = Long.parseLong(phoneNumber);
-        FragmentAccountFields.getInstance().setMobile( countryCode, phone+"" );
+        FragmentAccountFields.getInstance().getAccountData();
         dismiss();
     }
     
@@ -202,19 +197,19 @@ public class FragmentEditPhoneNumber extends DialogFragment implements EditPhone
         for(int index = 0; index < countryList.size(); index++){
             countryCodes.add( countryList.get(index).getCode() );
         }
-        
-        if( countryCode != null ){
-            int index = countryCodes.indexOf( countryCode );
-            spinnerCountryCode.setSelection( index );
-            editTextPhoneNumber.setText( phone+"" );
-        }else
-            countryCode = countryList.get(0).getCode();
-        
+    
         spinnerCountryCode.post(new Runnable() {
             @Override
             public void run() {
                 codesAdapter.notifyDataSetChanged();
             }
         });
+        
+        if( userDetails.getCountryCode() != null ){
+            int index = countryCodes.indexOf( countryCode );
+            spinnerCountryCode.setSelection( index );
+            editTextCurrentPhoneNumber.setText( phone );
+        }else
+            userDetails.setCountryCode(countryList.get(0).getCode());
     }
 }

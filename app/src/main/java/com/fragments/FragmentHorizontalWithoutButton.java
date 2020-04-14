@@ -1,5 +1,6 @@
 package com.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class FragmentHorizontalWithoutButton extends Fragment implements Horizon
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static FragmentHorizontalWithoutButton fragment;
     private static final String ARG_PARAM2 = "param2";
+    private Context context;
     
     // TODO: Rename and change types of parameters
     private View view;
@@ -63,8 +65,9 @@ public class FragmentHorizontalWithoutButton extends Fragment implements Horizon
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_horizontal_without_button, container, false);
         
+        context = getContext();
         if(presenter == null)
-            presenter = new HorizontalWithoutButtonPresenter(this);
+            presenter = new HorizontalWithoutButtonPresenter( context, this);
     
         recyclerViewSecondList = view.findViewById( R.id.recycler_view_list );
         items = new ArrayList<>();

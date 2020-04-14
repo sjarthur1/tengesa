@@ -47,11 +47,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         holder.textViewStreet.setText( addressObject.getStreetNameOrNo() );
         holder.textViewCity.setText( addressObject.getCity() );
         holder.textViewCountry.setText( addressObject.getCountry() );
-        if(position == addressList.size()-1){
+        holder.buttonAddAddress.setVisibility(View.GONE);
+        /*if(position == addressList.size()-1){
             holder.buttonAddAddress.setVisibility(View.VISIBLE);
         }else{
             holder.buttonAddAddress.setVisibility(View.GONE);
-        }
+        }*/
     
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override

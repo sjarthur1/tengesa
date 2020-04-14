@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.adapters.WishListItemAdapter;
 import com.constants.ActionOption;
+import com.constants.ProjectConfiguration;
 import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
 import com.objects.WishListData;
@@ -41,7 +42,7 @@ public class FragmentWishList extends Fragment implements WishlistPresenter.Wish
     
     private View view;
     private Fragment newFragment;
-    private ImageView imageViewBack;
+    private ImageView imageViewBack, imageViewLogo;
     private RecyclerView recyclerViewWishList;
     private AlertDialog alertDialog;
     private String mParam2;
@@ -76,8 +77,11 @@ public class FragmentWishList extends Fragment implements WishlistPresenter.Wish
         if(presenter == null)
             presenter = new WishlistPresenter(context, this);
     
+        imageViewLogo    = view.findViewById( R.id.image_view_logo );
         imageViewBack    = view.findViewById( R.id.image_view_back );
         recyclerViewWishList = view.findViewById( R.id.recycler_view_wish_list );
+    
+        ProjectConfiguration.setLogo( imageViewLogo );
         
         imageViewBack.setOnClickListener( onClickListener );
         wishList = presenter.wishList;

@@ -16,6 +16,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 import com.adapters.HomeAdapter;
 import com.adapters.MainBannerAdapter;
+import com.constants.ProjectConfiguration;
+import com.mobile.tengesa.ActivitySplashScreen;
 import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
 import com.objects.HomeProductCategories;
@@ -45,7 +47,7 @@ public class FragmentHome extends Fragment implements HomePresenter.HomeInterfac
     
     private Fragment fragment;
     private EditText editTextSearch;
-    private ImageView imageViewSearch;
+    private ImageView imageViewSearch, imageViewLogo;
     private ViewPager viewPagerBanner;
     private TextView textViewError;
     private SwipeRefreshLayout swipeRefresh;
@@ -78,6 +80,9 @@ public class FragmentHome extends Fragment implements HomePresenter.HomeInterfac
         fragmentHome = new FragmentHome();
         return fragmentHome;
     }
+    public static FragmentHome getInstance() {
+        return fragmentHome;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,6 +104,7 @@ public class FragmentHome extends Fragment implements HomePresenter.HomeInterfac
         linearLayoutTryAgain   = view.findViewById( R.id.linear_layout_try_again );
         relativeLayoutReload   = view.findViewById( R.id.relative_layout_reload );
         editTextSearch         = view.findViewById( R.id.edit_text_search );
+        imageViewLogo          = view.findViewById( R.id.image_view_logo );
         imageViewSearch        = view.findViewById( R.id.image_view_search );
         viewPagerBanner        = view.findViewById( R.id.view_pager_banner );
         textViewError          = view.findViewById( R.id.text_view_error );
@@ -120,21 +126,20 @@ public class FragmentHome extends Fragment implements HomePresenter.HomeInterfac
         
         if( presenter.currentProductList.size() == 0 ) {
             reload();
-            presenter.getHomeBanners();
+            //presenter.getHomeBanners();
         }
         //presenter.getCategoryById("85", "Second");
+    
+        ProjectConfiguration.setLogo( imageViewLogo );
+        initialization();
         return view;
     }
     
     @Override
     public void onResume() {
         super.onResume();
-        /*if( scrollValue < 300 ){
-            linearLayoutHead.setVisibility(View.VISIBLE);
-        }else{
-            linearLayoutHead.setVisibility(View.GONE);
-        }*/
-        initialization();
+        //MainActivity.getInstance().clearBundle();
+        //getFragmentManager().popBackStack( null, getFragmentManager().POP_BACK_STACK_INCLUSIVE );
     }
     
     View.OnClickListener clickListener = new View.OnClickListener() {
@@ -152,9 +157,6 @@ public class FragmentHome extends Fragment implements HomePresenter.HomeInterfac
                 case R.id.button_try_again:
                     MainActivity.getInstance().getCart();
                     reload();
-                    currentCategories.clear();
-                    //currentCategories.add(new HomeProductCategories("089"));
-                    presenter.getHomeBanners();
                     break;
             }
         }
@@ -174,7 +176,7 @@ public class FragmentHome extends Fragment implements HomePresenter.HomeInterfac
         }*/
     }
     
-    private void getUser(){
+    public void getUser(){
     
     }
     
@@ -184,10 +186,15 @@ public class FragmentHome extends Fragment implements HomePresenter.HomeInterfac
         progressBarMain.setVisibility( View.GONE );
     }
     
-    private void reload(){
+    public void reload(){
+        refreshing = true;
         relativeLayoutReload.setVisibility( View.VISIBLE );
         progressBarMain.setVisibility( View.VISIBLE );
         linearLayoutTryAgain.setVisibility( View.GONE );
+    
+        currentCategories.clear();
+        //currentCategories.add(new HomeProductCategories("089"));
+        presenter.getHomeBanners();
     }
     
     SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
@@ -206,7 +213,19 @@ public class FragmentHome extends Fragment implements HomePresenter.HomeInterfac
     
     @Override
     public void successful(List<HomeProductCategories> categories) {
+        currentCategories.addAll( presenter.homeProductCategory );
+        recyclerViewCategories.post(new Runnable() {
+            @Override
+            public void run() {
+                homeAdapter.notifyDataSetChanged();
+            }
+        });
     
+        if( ActivitySplashScreen.getInstance() != null )
+            ActivitySplashScreen.getInstance().finish();
+    
+        swipeRefresh.setRefreshing( false );
+        refreshing = false;
     }
     
     @Override
@@ -217,7 +236,7 @@ public class FragmentHome extends Fragment implements HomePresenter.HomeInterfac
     @Override
     public void successful(List<ProductData> products, int round) {
         relativeLayoutReload.setVisibility( View.GONE );
-        if(products.size() > 0) {
+        if( products.size() > 0 && presenter.currentCategories.size() > 0 ) {
             if (!currentCategories.contains(presenter.currentCategories.get(round))) {
                 currentCategories.add(presenter.currentCategories.get(round));
                 recyclerViewCategories.post(new Runnable() {
@@ -228,6 +247,9 @@ public class FragmentHome extends Fragment implements HomePresenter.HomeInterfac
                 });
             }
         }
+        
+        if( ActivitySplashScreen.getInstance() != null )
+            ActivitySplashScreen.getInstance().finish();
         
         swipeRefresh.setRefreshing( false );
         refreshing = false;

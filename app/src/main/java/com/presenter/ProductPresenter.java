@@ -9,6 +9,7 @@ import com.constants.ProjectConfiguration;
 import com.helpers.ManageLocalProductIds;
 import com.helpers.PreferenceManagement;
 import com.mobile.tengesa.MainActivity;
+import com.mobile.tengesa.R;
 import com.network_layer.CartServiceLayer;
 import com.network_layer.ProductServiceLayer;
 import com.network_layer.WishListServiceLayer;
@@ -42,11 +43,11 @@ public class ProductPresenter {
                     jsonObject.put( ProjectConfiguration.username,  username  );
                     jsonObject.put( ProjectConfiguration.productId, productId );
                     jsonObject.put( ProjectConfiguration.quantity,  quantity  );
-                    CartServiceLayer.saveCart(jsonObject, new ReturnBooleanCallback() {
+                    CartServiceLayer.saveCart(jsonObject, context, new ReturnBooleanCallback() {
                         @Override
                         public void onSuccess(Boolean response) {
                             if( response ) {
-                                view.successful("Successful", "has been added to cart, do you wish to continue to cart?", ActionOption.cart);
+                                view.successful("Successful", title+" "+context.getString( R.string.cart_added_message), ActionOption.cart);
                                 MainActivity.getInstance().getCart();
                             }else{
                                 view.failed( title+" is already in the cart" );
@@ -64,7 +65,7 @@ public class ProductPresenter {
             } else {
                 boolean stored = ManageLocalProductIds.editProductIdList( context, productId + "|" + quantity );
                 if( stored ){
-                    view.successful( "Successful", title+" has been added to cart, do you wish to continue to cart?", ActionOption.cart );
+                    view.successful( "Successful", title+" "+context.getString( R.string.cart_added_message), ActionOption.cart );
                     MainActivity.getInstance().getCart();
                 }
             }
@@ -73,10 +74,27 @@ public class ProductPresenter {
         }
     }
     
+    public void getProductById( String productId ){
+        ProductServiceLayer.getProductByProductID(productId, context, new ProductDataCallback() {
+            @Override
+            public void onSuccess(ProductData productData) {
+                view.successful( productData );
+            }
     
+            @Override
+            public void onSuccess(List<ProductData> productData) {
+        
+            }
     
-    public void getCategoryById( String categoryId ){
-        ProductServiceLayer.getProductsByCategoryID(categoryId, new ProductDataCallback() {
+            @Override
+            public void onError(String error) {
+        
+            }
+        });
+    }
+    
+    public void getRelatedProducts( String categoryId, String productId ){
+        ProductServiceLayer.getRelatedProducts( categoryId, productId, context, new ProductDataCallback() {
             @Override
             public void onSuccess(ProductData productData) {
             
@@ -95,12 +113,12 @@ public class ProductPresenter {
         });
     }
     
-    public void saveToWishList( String productId ){
+    public void saveToWishList( String productId, final String title ){
         String username = PreferenceManagement.readString(context, ProjectConfiguration.userId, null);
-        WishListServiceLayer.saveWishList(username, productId, new ReturnStringCallback() {
+        WishListServiceLayer.saveWishList(username, productId, context, new ReturnStringCallback() {
             @Override
             public void onSuccess(String response) {
-                view.successful("Successful", "has been added to wishlist, do you wish to continue to wishlist?", ActionOption.wishlist);
+                view.successful("Successful", title+" "+context.getString( R.string.cart_added_message), ActionOption.wishlist);
             }
             
             @Override
@@ -113,6 +131,7 @@ public class ProductPresenter {
     
     
     public interface ProductView{
+        void successful( ProductData productList );
         void successful( List<ProductData> productList );
         void successful(String title, String message, ActionOption action);
         void failed(String error);

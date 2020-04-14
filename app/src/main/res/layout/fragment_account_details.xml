@@ -17,8 +17,7 @@
                 android:id="@+id/image_view_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/tengesadotcomwhite"/>
+                android:layout_marginBottom="10dp"/>
             <ImageView
                 android:id="@+id/image_view_back"
                 android:layout_width="50dp"
@@ -29,7 +28,7 @@
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="match_parent"
-            android:text="Address"
+            android:text="Account"
             style="@style/tengesa_header"/>
     </LinearLayout>
     
@@ -140,7 +139,7 @@
                     android:layout_alignParentRight="true"
                     android:padding="5dp"
                     android:layout_margin="10dp"
-                    app:srcCompat="@drawable/icon_edit"/>
+                    android:src="@drawable/icon_edit"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <Button
@@ -226,7 +225,7 @@
                     android:layout_alignParentRight="true"
                     android:padding="5dp"
                     android:layout_margin="10dp"
-                    app:srcCompat="@drawable/icon_edit"/>
+                    android:src="@drawable/icon_edit"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

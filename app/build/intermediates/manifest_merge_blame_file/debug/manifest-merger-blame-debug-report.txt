@@ -1,0 +1,170 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.mobile.tengesa"
+4    android:versionCode="1"
+5    android:versionName="1.0.1" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+8-->F:\Tengesa\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->F:\Tengesa\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->F:\Tengesa\app\src\main\AndroidManifest.xml:6:5-67
+11-->F:\Tengesa\app\src\main\AndroidManifest.xml:6:22-64
+12    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+12-->F:\Tengesa\app\src\main\AndroidManifest.xml:7:5-76
+12-->F:\Tengesa\app\src\main\AndroidManifest.xml:7:22-73
+13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+13-->F:\Tengesa\app\src\main\AndroidManifest.xml:8:5-79
+13-->F:\Tengesa\app\src\main\AndroidManifest.xml:8:22-76
+14    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+14-->F:\Tengesa\app\src\main\AndroidManifest.xml:9:5-80
+14-->F:\Tengesa\app\src\main\AndroidManifest.xml:9:22-77
+15    <uses-permission android:name="android.permission.CAMERA" />
+15-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:9:5-65
+15-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:9:22-62
+16    <uses-permission android:name="android.permission.VIBRATE" />
+16-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:10:5-66
+16-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:10:22-63
+17
+18    <uses-feature
+18-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:12:5-14:36
+19        android:name="android.hardware.camera"
+19-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:13:9-47
+20        android:required="false" />
+20-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:14:9-33
+21    <uses-feature
+21-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:15:5-17:36
+22        android:name="android.hardware.camera.autofocus"
+22-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:16:9-57
+23        android:required="false" />
+23-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:17:9-33
+24
+25    <application
+25-->F:\Tengesa\app\src\main\AndroidManifest.xml:11:5-45:19
+26        android:allowBackup="true"
+26-->F:\Tengesa\app\src\main\AndroidManifest.xml:12:13-39
+27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+27-->[androidx.core:core:1.1.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\48c35ad5d9b38802636d7682ea040ded\core-1.1.0\AndroidManifest.xml:24:18-86
+28        android:debuggable="true"
+29        android:icon="@drawable/tengesa_main_icon"
+29-->F:\Tengesa\app\src\main\AndroidManifest.xml:13:13-55
+30        android:label="@string/app_name"
+30-->F:\Tengesa\app\src\main\AndroidManifest.xml:14:13-45
+31        android:roundIcon="@mipmap/ic_launcher_round"
+31-->F:\Tengesa\app\src\main\AndroidManifest.xml:15:13-58
+32        android:supportsRtl="true"
+32-->F:\Tengesa\app\src\main\AndroidManifest.xml:16:13-39
+33        android:testOnly="true"
+34        android:theme="@style/AppTheme"
+34-->F:\Tengesa\app\src\main\AndroidManifest.xml:17:13-44
+35        android:usesCleartextTraffic="true" >
+35-->F:\Tengesa\app\src\main\AndroidManifest.xml:18:13-48
+36        <activity
+36-->F:\Tengesa\app\src\main\AndroidManifest.xml:19:9-24:66
+37            android:name="com.mobile.tengesa.ActivitySplashScreen"
+37-->F:\Tengesa\app\src\main\AndroidManifest.xml:19:19-55
+38            android:configChanges="keyboardHidden|fontScale|orientation|screenSize|layoutDirection|locale|density"
+38-->F:\Tengesa\app\src\main\AndroidManifest.xml:20:17-119
+39            android:launchMode="singleTask"
+39-->F:\Tengesa\app\src\main\AndroidManifest.xml:21:17-48
+40            android:theme="@style/AppTheme"
+40-->F:\Tengesa\app\src\main\AndroidManifest.xml:22:17-48
+41            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+41-->F:\Tengesa\app\src\main\AndroidManifest.xml:23:17-77
+42        <activity
+42-->F:\Tengesa\app\src\main\AndroidManifest.xml:25:9-31:57
+43            android:name="com.mobile.access_control.ActivityAccessControl"
+43-->F:\Tengesa\app\src\main\AndroidManifest.xml:26:17-79
+44            android:configChanges="keyboardHidden|fontScale|orientation|screenSize|layoutDirection|locale|density"
+44-->F:\Tengesa\app\src\main\AndroidManifest.xml:27:17-119
+45            android:launchMode="singleTask"
+45-->F:\Tengesa\app\src\main\AndroidManifest.xml:28:17-48
+46            android:theme="@style/AppAuthenticationTheme"
+46-->F:\Tengesa\app\src\main\AndroidManifest.xml:29:17-62
+47            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+47-->F:\Tengesa\app\src\main\AndroidManifest.xml:30:17-77
+48        <activity
+48-->F:\Tengesa\app\src\main\AndroidManifest.xml:32:9-44:20
+49            android:name="com.mobile.tengesa.MainActivity"
+49-->F:\Tengesa\app\src\main\AndroidManifest.xml:33:17-45
+50            android:configChanges="keyboardHidden|fontScale|orientation|screenSize|layoutDirection|locale|density"
+50-->F:\Tengesa\app\src\main\AndroidManifest.xml:34:17-119
+51            android:label="@string/app_name"
+51-->F:\Tengesa\app\src\main\AndroidManifest.xml:35:17-49
+52            android:launchMode="singleTask"
+52-->F:\Tengesa\app\src\main\AndroidManifest.xml:36:17-48
+53            android:theme="@style/AppTheme"
+53-->F:\Tengesa\app\src\main\AndroidManifest.xml:37:17-48
+54            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" >
+54-->F:\Tengesa\app\src\main\AndroidManifest.xml:38:17-77
+55            <intent-filter>
+55-->F:\Tengesa\app\src\main\AndroidManifest.xml:40:13-43:29
+56                <action android:name="android.intent.action.MAIN" />
+56-->F:\Tengesa\app\src\main\AndroidManifest.xml:41:17-69
+56-->F:\Tengesa\app\src\main\AndroidManifest.xml:41:25-66
+57
+58                <category android:name="android.intent.category.LAUNCHER" />
+58-->F:\Tengesa\app\src\main\AndroidManifest.xml:42:17-77
+58-->F:\Tengesa\app\src\main\AndroidManifest.xml:42:27-74
+59            </intent-filter>
+60        </activity>
+61
+62        <provider
+62-->[com.squareup.picasso:picasso:2.71828] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c46bda693decfc5765e58f4a208a4ca4\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
+63            android:name="com.squareup.picasso.PicassoProvider"
+63-->[com.squareup.picasso:picasso:2.71828] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c46bda693decfc5765e58f4a208a4ca4\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
+64            android:authorities="com.mobile.tengesa.com.squareup.picasso"
+64-->[com.squareup.picasso:picasso:2.71828] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c46bda693decfc5765e58f4a208a4ca4\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
+65            android:exported="false" />
+65-->[com.squareup.picasso:picasso:2.71828] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c46bda693decfc5765e58f4a208a4ca4\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
+66
+67        <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
+67-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:13:9-84
+67-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:13:19-81
+68        <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
+68-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:14:9-90
+68-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:14:19-87
+69        <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
+69-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:15:9-91
+69-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:15:19-88
+70        <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
+70-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:16:9-82
+70-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:16:19-79
+71        <activity android:name="com.paypal.android.sdk.payments.PayPalFuturePaymentActivity" />
+71-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:17:9-96
+71-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:17:19-93
+72        <activity android:name="com.paypal.android.sdk.payments.FuturePaymentConsentActivity" />
+72-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:18:9-97
+72-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:18:19-94
+73        <activity android:name="com.paypal.android.sdk.payments.FuturePaymentInfoActivity" />
+73-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:19:9-94
+73-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:19:19-91
+74        <activity android:name="com.paypal.android.sdk.payments.PayPalProfileSharingActivity" />
+74-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:20:9-97
+74-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:20:19-94
+75        <activity android:name="com.paypal.android.sdk.payments.ProfileSharingConsentActivity" />
+75-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:21:9-98
+75-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:21:19-95
+76
+77        <service
+77-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:23:9-25:40
+78            android:name="com.paypal.android.sdk.payments.PayPalService"
+78-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:24:13-73
+79            android:exported="false" />
+79-->[com.paypal.sdk:paypal-android-sdk:2.16.0] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\03890cf72b9ab08e3a400067743bf03a\jetified-paypal-android-sdk-2.16.0\AndroidManifest.xml:25:13-37
+80
+81        <activity
+81-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:20:9-22:66
+82            android:name="io.card.payment.CardIOActivity"
+82-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:21:13-58
+83            android:configChanges="keyboardHidden|orientation" />
+83-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:22:13-63
+84        <activity android:name="io.card.payment.DataEntryActivity" />
+84-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:23:9-70
+84-->[io.card:android-sdk:5.5.1] C:\Users\asus\.gradle\caches\transforms-2\files-2.1\c2e9995d7bf58a7fe39ba37f9f55c1a3\jetified-android-sdk-5.5.1\AndroidManifest.xml:23:19-67
+85    </application>
+86
+87</manifest>

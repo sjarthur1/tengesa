@@ -7,5 +7,7 @@
     <color name="colorGreyDark">#343a40</color>
     <color name="colorGreyLight">#3D343a40</color>
     <color name="colorAccent">#343a40</color>
+    <color name="color_grey">#7c7c7c</color>
+    <color name="color_green">#4CAF50</color>
     <color name="colorError">#F44336</color>
 </resources>

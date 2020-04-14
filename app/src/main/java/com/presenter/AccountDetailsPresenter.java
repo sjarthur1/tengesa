@@ -19,7 +19,7 @@ public class AccountDetailsPresenter {
     }
     
     public void getPersonalDetails(){
-        AccountServiceLayer.getUserDetails(userId, new UserDetailsCallBack() {
+        AccountServiceLayer.getUserDetails(userId, context, new UserDetailsCallBack() {
             @Override
             public void onSuccess(UserDetails userDetails) {
                 if(userDetails != null) {
@@ -37,7 +37,7 @@ public class AccountDetailsPresenter {
     }
     
     public void getAccountDetails(){
-        AccountServiceLayer.getUserAccount(userId, new UserDetailsCallBack() {
+        AccountServiceLayer.getUserAccount(userId, context, new UserDetailsCallBack() {
             @Override
             public void onSuccess(UserDetails userDetails) {
                 if(userDetails != null) {

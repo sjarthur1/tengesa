@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.fragments.FragmentProcessingOrder">
+    <LinearLayout
+            android:layout_width="match_parent"
+            style="@style/top_layout">
+        <ImageView
+                android:id="@+id/image_view_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp" />
+        <TextView
+                android:id="@+id/text_view_page_title"
+                android:layout_width="match_parent"
+                android:text="@string/title_my_cart"
+                style="@style/tengesa_header"/>
+    </LinearLayout>
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:layout_weight="2">
+        <LinearLayout
+            android:id="@+id/linear_layout_success"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/text_view_success_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="27sp"
+                android:textColor="@color/color_green"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+            <TextView
+                android:id="@+id/text_view_success_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textColor="@color/color_grey"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+            <TextView
+                android:id="@+id/text_view_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="Go to orders page"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"
+                android:layout_margin="5dp" />
+            
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_layout_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <ProgressBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_view_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textColor="@color/color_grey"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

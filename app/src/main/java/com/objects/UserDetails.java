@@ -3,7 +3,7 @@ package com.objects;
 import java.io.Serializable;
 
 public class UserDetails implements Serializable {
-    private String UserID, Email, MobileNumber, Fullname, Gender, BirthDate, CountryOfResidence, CountryCode, CreatedDate,
+    private String UserID, Email, MobileNumber, Mobile_Number, Fullname, Gender, BirthDate, CountryOfResidence, CountryCode, CreatedDate,
             UpdatedDate, IsActive, IsEmailConfirmed, AddressID, IsAuthenticated;
     
     public String getUserID() {
@@ -100,6 +100,14 @@ public class UserDetails implements Serializable {
     
     public void setIsEmailConfirmed(String isEmailConfirmed) {
         IsEmailConfirmed = isEmailConfirmed;
+    }
+    
+    public String getMobile_Number() {
+        return Mobile_Number;
+    }
+    
+    public void setMobile_Number(String mobile_Number) {
+        Mobile_Number = mobile_Number;
     }
     
     public String getAddressID() {

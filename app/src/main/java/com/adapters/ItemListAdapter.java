@@ -63,11 +63,12 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     @Override
     public void onBindViewHolder(@NonNull ItemListViewHolder holder, int position) {
         final ProductData productData = itemList.get( position );
-        String imageKey = productData.getImages().entrySet().iterator().next().getKey();
-        String imageValue = productData.getImages().get(imageKey).toString();
+        String imageKey = productData.getImagesThumb().entrySet().iterator().next().getKey();
+        String imageValue = productData.getImagesThumb().get(imageKey).toString();
         Picasso.get().load(imageValue).into(holder.imageViewItemImage);
         holder.textViewGadget.setText( itemList.get(position).getTitle().trim() );
         holder.textViewPrice.setText( itemList.get(position).getPrice().trim() );
+        holder.textViewCurrency.setText( productData.getCurrency().trim() );
     
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -102,7 +103,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     
     public class ItemListViewHolder extends RecyclerView.ViewHolder{
         ImageView imageViewItemImage, imageViewLike;
-        TextView textViewGadget, textViewPrice;
+        TextView textViewGadget, textViewPrice, textViewCurrency;
         Button buttonAddToCart;
     
         public ItemListViewHolder(@NonNull View itemView) {
@@ -111,6 +112,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
             imageViewLike      = itemView.findViewById( R.id.image_view_like );
             textViewGadget     = itemView.findViewById( R.id.text_view_gadget );
             textViewPrice      = itemView.findViewById( R.id.text_view_price );
+            textViewCurrency   = itemView.findViewById( R.id.text_view_currency );
             buttonAddToCart    = itemView.findViewById( R.id.button_add_to_cart );
         }
     }
@@ -119,7 +121,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     public void saveToWishList(String productId, final String product ){
         String username = PreferenceManagement.readString(context, ProjectConfiguration.userId, null);
         if( username != null ) {
-            WishListServiceLayer.saveWishList(username, productId, new ReturnStringCallback() {
+            WishListServiceLayer.saveWishList(username, productId, context, new ReturnStringCallback() {
                 @Override
                 public void onSuccess(String response) {
                     launchDialog("Successful", product + " has been added to wishlist, do you wish to continue to wishlist?", ActionOption.wishlist);
@@ -146,7 +148,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
                     jsonObject.put( ProjectConfiguration.username,  username  );
                     jsonObject.put( ProjectConfiguration.productId, productId );
                     jsonObject.put( ProjectConfiguration.quantity,  quantity  );
-                    CartServiceLayer.saveCart(jsonObject, new ReturnBooleanCallback() {
+                    CartServiceLayer.saveCart(jsonObject, context, new ReturnBooleanCallback() {
                         @Override
                         public void onSuccess(Boolean response) {
                             if( response ) {

@@ -34,7 +34,7 @@ public class EditPasswordPresenter {
                 jsonObject.remove( ProjectConfiguration.confirmPassword );
                 /*String userId = PreferenceManagement.readString(context, ProjectConfiguration.userId, null);
                 jsonObject.put(ProjectConfiguration.userId, userId);*/
-                AccountServiceLayer.editPassword(jsonObject, new ReturnStringCallback() {
+                AccountServiceLayer.editPassword(jsonObject, context, new ReturnStringCallback() {
                     @Override
                     public void onSuccess(String response) {
                         view.successful(response);

@@ -16,6 +16,10 @@ public class ProductData implements Serializable {
     
     private String UploadedDate;
     
+    private String SellerID;
+    
+    private String SellerName;
+    
     private String Warranty;
     
     private String Description;
@@ -198,6 +202,22 @@ public class ProductData implements Serializable {
     public void setStock (String Stock)
     {
         this.Stock = Stock;
+    }
+    
+    public String getSellerID() {
+        return SellerID;
+    }
+    
+    public void setSellerID(String sellerID) {
+        SellerID = sellerID;
+    }
+    
+    public String getSellerName() {
+        return SellerName;
+    }
+    
+    public void setSellerName(String sellerName) {
+        SellerName = sellerName;
     }
     
     @Override

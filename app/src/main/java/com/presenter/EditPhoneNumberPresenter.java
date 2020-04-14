@@ -2,6 +2,7 @@ package com.presenter;
 
 import android.content.Context;
 import com.constants.ErrorField;
+import com.constants.InputValidator;
 import com.constants.ProjectConfiguration;
 import com.helpers.PreferenceManagement;
 import com.network_layer.AccountServiceLayer;
@@ -17,10 +18,12 @@ public class EditPhoneNumberPresenter {
     
     private Context context;
     private EditPhoneNumberView view;
+    private String userId;
     
     public EditPhoneNumberPresenter(Context context, EditPhoneNumberView view) {
         this.context = context;
         this.view = view;
+        userId = PreferenceManagement.readString(context, ProjectConfiguration.userId, null);
     }
     
     public void editMobileNumber(JSONObject jsonObject){
@@ -38,11 +41,10 @@ public class EditPhoneNumberPresenter {
                 view.failure("Please provide your valid password", ErrorField.password);
             }else {
                 jsonObject.remove(ProjectConfiguration.MobileNumber);
-                long phone = Long.parseLong( mobile );
-                String userId = PreferenceManagement.readString(context, ProjectConfiguration.userId, null);
-                jsonObject.put( ProjectConfiguration.MobileNumber, phone );
+                mobile = InputValidator.validatePhoneString( mobile );
+                jsonObject.put( ProjectConfiguration.MobileNumber, mobile );
                 jsonObject.put(ProjectConfiguration.userId, userId);
-                AccountServiceLayer.editMobileNumber(jsonObject, new ReturnStringCallback() {
+                AccountServiceLayer.editMobileNumber(jsonObject, context, new ReturnStringCallback() {
                     @Override
                     public void onSuccess(String response) {
                         if(response.contains("Wrong"))
@@ -67,7 +69,7 @@ public class EditPhoneNumberPresenter {
     }
     
     public void getCountryCodes(){
-        AccountServiceLayer.getCountryCodes(new ReturnCountriesCallback() {
+        AccountServiceLayer.getCountryCodes( true, context, new ReturnCountriesCallback() {
             @Override
             public void onSuccess(List<Country> countryObject) {
                 view.successful( countryObject );

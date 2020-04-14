@@ -33,7 +33,7 @@ public class WishlistPresenter {
     
     public void getWishList(){
         String username = PreferenceManagement.readString(context, ProjectConfiguration.userId, null);
-        WishListServiceLayer.getFullWishList(username, new WishListCallback() {
+        WishListServiceLayer.getFullWishList(username, context, new WishListCallback() {
             @Override
             public void onSuccess( List<WishListData> wishListData ) {
                 view.returnWishList( wishListData );
@@ -47,7 +47,7 @@ public class WishlistPresenter {
     }
     
     public void removeWishListItem( String mongoId, final int position){
-        WishListServiceLayer.removeWishList(mongoId, new ReturnStringCallback() {
+        WishListServiceLayer.removeWishList(mongoId, context, new ReturnStringCallback() {
             @Override
             public void onSuccess(String response) {
                 view.successful( position );
@@ -70,7 +70,7 @@ public class WishlistPresenter {
                     jsonObject.put( ProjectConfiguration.username,  username  );
                     jsonObject.put( ProjectConfiguration.productId, productId );
                     jsonObject.put( ProjectConfiguration.quantity,  quantity  );
-                    CartServiceLayer.saveCart(jsonObject, new ReturnBooleanCallback() {
+                    CartServiceLayer.saveCart(jsonObject, context, new ReturnBooleanCallback() {
                         @Override
                         public void onSuccess(Boolean response) {
                             if( response ) {

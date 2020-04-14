@@ -26,7 +26,7 @@ public class AddressPresenter {
         if(userId == null){
             view.redirectToLogin();
         }else{
-            AccountServiceLayer.getAddresses(userId, new UserAddressListCallback() {
+            AccountServiceLayer.getAddresses(userId, context, new UserAddressListCallback() {
                 @Override
                 public void onSuccess(List<UserAddresses> userAddresses) {
                     view.successful( userAddresses );
@@ -42,7 +42,7 @@ public class AddressPresenter {
     }
     
     public void deleteAddress(String addressId, final int position ){
-        AccountServiceLayer.deleteAddress(addressId, new ReturnBooleanCallback() {
+        AccountServiceLayer.deleteAddress(addressId, context, new ReturnBooleanCallback() {
             @Override
             public void onSuccess(Boolean response) {
                 if( response )

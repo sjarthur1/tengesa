@@ -3,20 +3,24 @@ package com.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.constants.ProjectConfiguration;
+import com.fragments.FragmentProduct;
 import com.helpers.PreferenceManagement;
 import com.mobile.tengesa.R;
 import com.network_layer.WishListServiceLayer;
 import com.objects.CartObject;
 import com.presenter.MyCartPresenter;
+import com.presenter.StartFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -75,6 +79,8 @@ public class HorizontalListItemAdapter extends RecyclerView.Adapter<HorizontalLi
             
             }
         });
+        
+        
     
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -86,12 +92,22 @@ public class HorizontalListItemAdapter extends RecyclerView.Adapter<HorizontalLi
                     case R.id.button_add_to_wish_list:
                         presenter.saveToWishList( cartObject.getProductID() );
                         break;
+                    default:
+                        Fragment fragment = FragmentProduct.newInstance();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable( ProjectConfiguration.productId, cartObject.getProductID() );
+                        fragment.setArguments(bundle);
+                        StartFragment.startFragment(fragmentManager, "Product Details", fragment);
+                        break;
                 }
             }
         };
         
         holder.imageViewCancel.setOnClickListener( onClickListener );
         holder.buttonAddToWishList.setOnClickListener(onClickListener);
+        holder.imageViewThumbnail.setOnClickListener( onClickListener );
+        holder.textViewItem.setOnClickListener( onClickListener );
+        holder.textViewPrice.setOnClickListener( onClickListener );
     }
     
     @Override

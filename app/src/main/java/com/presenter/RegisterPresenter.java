@@ -3,6 +3,7 @@ package com.presenter;
 import android.content.Context;
 
 import com.constants.ProjectConfiguration;
+import com.mobile.tengesa.R;
 import com.network_layer.AccountServiceLayer;
 import com.network_layer.callback.ReturnBooleanCallback;
 import com.network_layer.callback.ReturnCountriesCallback;
@@ -36,6 +37,7 @@ public class RegisterPresenter {
         }else if( !reenterPassword.equals( password ) ) {
             view.error( "Password does not match the first password.", ErrorType.password2 );
         }else{
+            view.showDialog();
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put( ProjectConfiguration.FullName, fullName );
@@ -44,13 +46,13 @@ public class RegisterPresenter {
                 jsonObject.put( ProjectConfiguration.password, password );
                 jsonObject.put( ProjectConfiguration.reEnterPassword, reenterPassword );
                 jsonObject.put( ProjectConfiguration.CountryCode, countryCode );
-                AccountServiceLayer.register(jsonObject, new ReturnBooleanCallback() {
+                AccountServiceLayer.register(jsonObject, context, new ReturnBooleanCallback() {
                     @Override
                     public void onSuccess(Boolean response) {
                         if(response == true){
-                            view.successful("Registration successful");
+                            view.successful( context.getString(R.string.registration_successful ) );
                         }else{
-                            view.error( "Failed to register you", ErrorType.login );
+                            view.error( context.getString( R.string.email_exists ), ErrorType.login );
                         }
                     }
                 
@@ -61,12 +63,13 @@ public class RegisterPresenter {
                 });
             } catch (JSONException e) {
                 e.printStackTrace();
+                view.error( e.getLocalizedMessage(), ErrorType.login );
             }
         }
     }
     
     public void getCountryCodes(){
-        AccountServiceLayer.getCountryCodes(new ReturnCountriesCallback() {
+        AccountServiceLayer.getCountryCodes( false, context, new ReturnCountriesCallback() {
             @Override
             public void onSuccess(List<Country> countryObject) {
                 view.successful( countryObject );
@@ -83,6 +86,7 @@ public class RegisterPresenter {
     
     
     public interface RegisterView{
+        public void showDialog();
         void error( String error, ErrorType errorType );
         void successful( List<Country> countryObject );
         void successful( String message );

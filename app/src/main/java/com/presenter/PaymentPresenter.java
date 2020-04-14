@@ -4,14 +4,20 @@ import android.content.Context;
 import android.util.Log;
 
 import com.constants.ProjectConfiguration;
+import com.fragments.FragmentProcessingOrder;
 import com.google.gson.Gson;
+import com.helpers.ManageLocalProductIds;
 import com.helpers.PreferenceManagement;
 import com.mobile.tengesa.MainActivity;
+import com.mobile.tengesa.R;
 import com.network_layer.CartServiceLayer;
 import com.network_layer.ProductServiceLayer;
 import com.network_layer.ReturnDoubleCallback;
+import com.network_layer.callback.CartObjectCallback;
 import com.network_layer.callback.ReturnOrderCallback;
 import com.network_layer.callback.ReturnOrderFullCallback;
+import com.network_layer.callback.ReturnStringCallback;
+import com.objects.CartObject;
 import com.objects.FullOrder;
 import com.objects.OrderData;
 import com.objects.Orders;
@@ -22,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentPresenter {
@@ -52,7 +59,7 @@ public class PaymentPresenter {
     }
     
     public void getAdditionalShippingFee( String city ){
-        CartServiceLayer.getAdditionalShippingFee(city, new ReturnDoubleCallback() {
+        CartServiceLayer.getAdditionalShippingFee(city, context, new ReturnDoubleCallback() {
             @Override
             public void successful( double amount ) {
                 additionalShippingCost = amount;
@@ -66,7 +73,7 @@ public class PaymentPresenter {
         });
     }
     
-    public void pressOrder(){
+    public void placeOrder(){
         String orderListString = new Gson().toJson( productOrderList );
         try {
             JSONArray jsonArray = new JSONArray( orderListString );
@@ -80,16 +87,24 @@ public class PaymentPresenter {
             jsonObject.put( ProjectConfiguration.OrderDateTime, null );
             jsonObject.put( ProjectConfiguration.OrderDetailsList, jsonArray );
             Log.d( "Char", "Here");
-            ProductServiceLayer.placeOrder(jsonObject, new ReturnOrderCallback() {
+            ProductServiceLayer.placeOrder(jsonObject, context, new ReturnOrderCallback() {
                 @Override
                 public void successful(Orders orders) {
+                    if(FragmentProcessingOrder.getInstance() != null){
+                        MainActivity.getInstance().clearCart();
+                        String title = context.getString(R.string.order_success_title);
+                        String message = context.getString(R.string.order_success_message);
+                        FragmentProcessingOrder.getInstance().goToNextPage( title, message );
+                    }
                     view.successful( orders );
                 }
     
                 @Override
                 public void failure(String errorMessage) {
                     view.failure( errorMessage, ErrorType.orderError );
-                    
+                    if(FragmentProcessingOrder.getInstance() != null){
+                        FragmentProcessingOrder.getInstance().goToPreviousPage();
+                    }
                 }
             });
         } catch (JSONException e) {
@@ -97,8 +112,10 @@ public class PaymentPresenter {
         }
     }
     
+    
+    
     public void getOrders(){
-        ProductServiceLayer.getOrder(username, new ReturnOrderFullCallback() {
+        ProductServiceLayer.getOrder(username, context, new ReturnOrderFullCallback() {
             @Override
             public void successful( List<FullOrder> fullOrder ) {
                 Log.d("Here", "Here" );
@@ -120,6 +137,6 @@ public class PaymentPresenter {
     }
     
     public enum ErrorType{
-        feeError, orderError
+        feeError, orderError, network
     }
 }

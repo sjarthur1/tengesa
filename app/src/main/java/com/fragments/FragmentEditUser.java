@@ -11,17 +11,24 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.adapters.CountriesListAdapter;
+import com.constants.ErrorField;
 import com.constants.ProjectConfiguration;
+import com.google.android.material.textfield.TextInputEditText;
 import com.helpers.DateConverter;
 import com.mobile.tengesa.MainActivity;
 import com.mobile.tengesa.R;
 import com.objects.UserDetails;
+import com.objects.list_objects.Country;
 import com.presenter.EditUserPresenter;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 /**
@@ -46,11 +53,16 @@ public class FragmentEditUser extends Fragment implements EditUserPresenter.Edit
     
     private View view;
     private UserDetails userDetails;
-    private ImageView imageViewBack;
-    private EditText editTextName, editTextCountry, editTextBirthDate;
+    private ImageView imageViewBack, imageViewLogo;
+    private TextInputEditText editTextName, editTextBirthDate;
+    private Spinner spinnerCountry;
     private RadioGroup radioGroupGender;
     private RadioButton radioButtonMale, radioButtonFemale;
     private Button buttonSubmit;
+    private List<Country> countryList;
+    private List<String> countryTitles;
+    private CountriesListAdapter codesAdapter;
+    private Country country;
     
     public FragmentEditUser() {
         // Required empty public constructor
@@ -78,9 +90,10 @@ public class FragmentEditUser extends Fragment implements EditUserPresenter.Edit
         view = inflater.inflate(R.layout.fragment_edit_user, container, false);
         context = getContext();
     
+        imageViewLogo     = view.findViewById( R.id.image_view_logo );
         imageViewBack     = view.findViewById( R.id.image_view_back );
         editTextName      = view.findViewById( R.id.edit_text_name );
-        editTextCountry   = view.findViewById( R.id.edit_text_country );
+        spinnerCountry    = view.findViewById( R.id.spinner_country );
         editTextBirthDate = view.findViewById( R.id.edit_text_birth_date );
         radioGroupGender  = view.findViewById( R.id.radio_group_gender );
         radioButtonMale   = view.findViewById( R.id.radio_button_male );
@@ -95,9 +108,43 @@ public class FragmentEditUser extends Fragment implements EditUserPresenter.Edit
         if( presenter == null )
             presenter = new EditUserPresenter(context, this);
         
+        countryList   = new ArrayList<>();
+        countryTitles = new ArrayList<>();
+        codesAdapter  = new CountriesListAdapter( context, countryList );
+        spinnerCountry.setAdapter( codesAdapter );
+        
         imageViewBack.setOnClickListener( clickListener );
         editTextBirthDate.setOnClickListener( clickListener );
         buttonSubmit.setOnClickListener( clickListener );
+        radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch( radioGroup.getCheckedRadioButtonId() ){
+                    case R.id.radio_button_male:
+                        userDetails.setGender("Male");
+                        break;
+                    case R.id.radio_button_female:
+                        userDetails.setGender("Female");
+                        break;
+                }
+            }
+        });
+    
+    
+        presenter.getCountryCodes();
+        spinnerCountry.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                userDetails.setCountryOfResidence( countryList.get(position).getCountry() );
+                spinnerCountry.setBackgroundResource( R.drawable.edit_text_border );
+            }
+        
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                if( country == null )
+                    spinnerCountry.setBackgroundResource( R.drawable.edit_text_border );
+            }
+        });
         
         calendar = Calendar.getInstance();
     
@@ -116,6 +163,8 @@ public class FragmentEditUser extends Fragment implements EditUserPresenter.Edit
             }
         };
         
+        ProjectConfiguration.setLogo( imageViewLogo );
+        
         return view;
     }
     
@@ -126,7 +175,7 @@ public class FragmentEditUser extends Fragment implements EditUserPresenter.Edit
     }
     
     private void fillForm(){
-        if(userDetails != null){
+        if( userDetails != null ){
             String fullName  = userDetails.getFullname() != null ? userDetails.getFullname() : "";
             String birthDate = userDetails.getBirthDate() != null ? userDetails.getBirthDate() : "";
             String gender    = userDetails.getGender() != null ? userDetails.getGender() : "";
@@ -134,12 +183,11 @@ public class FragmentEditUser extends Fragment implements EditUserPresenter.Edit
             String country   = userDetails.getCountryOfResidence() != null ? userDetails.getCountryOfResidence() : "";
             
             editTextName.setText( fullName );
-            editTextCountry.setText( country );
             editTextBirthDate.setText( birthDate );
             if(gender.equalsIgnoreCase("Male"))
-                radioButtonMale.isChecked();
+                radioButtonMale.setChecked(true);
             else if(gender.equalsIgnoreCase("Female"))
-                radioButtonFemale.isChecked();
+                radioButtonFemale.setChecked(true);
             
         }
     }
@@ -180,7 +228,7 @@ public class FragmentEditUser extends Fragment implements EditUserPresenter.Edit
     private void getPersonalData(){
         String name = editTextName.getText() != null ? editTextName.getText().toString() : "";
         String birthDate = editTextBirthDate.getText() != null ? editTextBirthDate.getText().toString() : "";
-        String country = editTextCountry.getText() != null ? editTextCountry.getText().toString() : "";
+        String countryTitle = userDetails.getCountryOfResidence() != null ? userDetails.getCountryOfResidence() : "";
         
         birthDate = DateConverter.formatDate(birthDate, "dd/MM/yyyy", "yyyy-MM-dd");
     
@@ -188,7 +236,8 @@ public class FragmentEditUser extends Fragment implements EditUserPresenter.Edit
         try {
             jsonObject.put( ProjectConfiguration.FullName, name );
             jsonObject.put( ProjectConfiguration.birthDate, birthDate );
-            jsonObject.put( ProjectConfiguration.CountryOfResidence, country );
+            jsonObject.put( ProjectConfiguration.gender, userDetails.getGender() );
+            jsonObject.put( ProjectConfiguration.CountryOfResidence, countryTitle );
             presenter.editPersonalData( jsonObject );
         } catch (JSONException e) {
             e.printStackTrace();
@@ -201,9 +250,36 @@ public class FragmentEditUser extends Fragment implements EditUserPresenter.Edit
     }
     
     @Override
+    public void successful(List<Country> countryObject) {
+        countryList.addAll( countryObject );
+    
+        for(int index = 0; index < countryList.size(); index++){
+            countryTitles.add( countryList.get(index).getCountry() );
+        }
+    
+        spinnerCountry.post(new Runnable() {
+            @Override
+            public void run() {
+                codesAdapter.notifyDataSetChanged();
+            }
+        });
+    
+        if( userDetails.getCountryOfResidence() != null ){
+            int index = countryTitles.indexOf( userDetails.getCountryOfResidence() );
+            spinnerCountry.setSelection( index );
+        }else
+            userDetails.setCountryOfResidence( countryList.get(0).getCountry() );
+    }
+    
+    @Override
     public void successful(String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
         getActivity().onBackPressed();
+    }
+    
+    @Override
+    public void failure(String message, ErrorField field) {
+    
     }
     
     
